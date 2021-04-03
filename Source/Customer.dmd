@@ -1,0 +1,72 @@
+/*
+    CUSTOMER.DMD
+    This datamodule is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 06/27/2001
+//
+class CustomerDataModule of BASEDATAMODULE from Base.cdm
+   with (this)
+      left = -1
+      top = -1
+   endwith
+
+   with (this.DBASETUTORIAL1)
+      left = 34
+      top = 66
+      width = 115
+      height = 112
+   endwith
+
+   this.CUSTOMER1 = new QUERY()
+   this.CUSTOMER1.parent = this
+   with (this.CUSTOMER1)
+      onOpen = class::CUSTOMER1_ONOPEN
+      left = 220
+      top = 21
+      width = 150
+      height = 192
+      database = form.dbaseTutorial1
+      sql = 'Select * from "customer.dbf"'
+      active = true
+   endwith
+
+   with (this.CUSTOMER1.rowset)
+      canSave = class::ROWSET_CANSAVE
+      fields["State ID"].lookupSQL = "select * from state order by state"
+      fields["Country ID"].lookupSQL = "select * from country order by country"
+      fields["FullName"].beforeGetValue = class::FULLNAME_BEFOREGETVALUE
+      indexName = "NAMES"
+   endwith
+
+
+   function customer1_onOpen
+
+      class::calcField("FullName",30)
+         
+      return
+
+   function FullName_beforeGetValue
+      
+      return  trim( this.parent["first name"].value ) + " " ;
+         +this.parent["last name"].value
+
+   function rowset_canSave
+      local cErrors, bRetVal
+      cErrors = ""     // String for errors
+      if empty( this.fields[ "Last name" ].value )
+         cErrors += "- LAST NAME cannot be blank" + chr(13)
+      endif
+      if empty( this.fields[ "Postal" ].value )
+         cErrors += "- POSTAL CODE cannot be blank" + chr(13)
+      endif
+      if "" # cErrors
+         msgbox( "Can't save current entry because:" + chr(13) + ;
+             cErrors, "Bad entry", 48 )
+         bRetVal = false
+      else
+         bRetVal = true
+      endif
+      return bRetVal
+endclass

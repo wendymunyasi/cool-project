@@ -1,0 +1,148 @@
+/*
+    INVENTORY.WFM
+    This form is part of the dBBASE SE tutorial project. 
+
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 08/16/2001
+//
+parameter bModal
+local f
+f = new InventoryForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class InventoryForm of DATAFORMCFORM from Dataform.cfm
+   set procedure to :FormControls:SEEKER.CC additive
+   set procedure to MyControls.cc additive
+   set procedure to Inventory.dmd additive
+   with (this)
+      text = "Inventory"
+   endwith
+
+   this.INVENTORYDATAMODULE1 = new INVENTORYDATAMODULE()
+   this.INVENTORYDATAMODULE1.parent = this
+   with (this.INVENTORYDATAMODULE1)
+      left = 47
+      top = 6
+   endwith
+
+   with (this.MYTITLETEXT1)
+      text = "Inventory"
+   endwith
+
+   with (this.GRID1)
+      dataLink = form.inventorydatamodule1.inventory1.rowset
+      columns["COLUMN1"] = new GRIDCOLUMN(form.GRID1)
+      columns["COLUMN1"].dataLink = form.inventorydatamodule1.inventory1.rowset.fields["description"]
+      columns["COLUMN1"].editorType = 1	// EntryField
+      columns["COLUMN1"].width = 32.1429
+      columns["COLUMN2"] = new GRIDCOLUMN(form.GRID1)
+      columns["COLUMN2"].dataLink = form.inventorydatamodule1.inventory1.rowset.fields["qty"]
+      columns["COLUMN2"].editorType = 1	// EntryField
+      columns["COLUMN2"].width = 15.7143
+      columns["COLUMN3"] = new GRIDCOLUMN(form.GRID1)
+      columns["COLUMN3"].dataLink = form.inventorydatamodule1.inventory1.rowset.fields["supplier id"]
+      columns["COLUMN3"].editorType = 4	// ComboBox
+      columns["COLUMN3"].width = 30.8571
+      with (columns["COLUMN1"].headingControl)
+         value = "Description              "
+      endwith
+
+      with (columns["COLUMN2"].headingControl)
+         value = "Qty                      "
+      endwith
+
+      with (columns["COLUMN3"].editorControl)
+         dropDownHeight = 16.6364
+      endwith
+
+      with (columns["COLUMN3"].headingControl)
+         value = "Contact                  "
+      endwith
+
+      height = 11.4545
+      left = 1
+      top = 1.6364
+      width = 77.2857
+   endwith
+
+   this.MYTEXTLABEL1 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL1)
+      height = 0.9545
+      left = 1.2857
+      top = 3.1364
+      width = 16.2857
+      text = "Description:"
+   endwith
+
+   this.MYENTRYFIELD1 = new MYENTRYFIELD(this)
+   with (this.MYENTRYFIELD1)
+      dataLink = form.inventorydatamodule1.inventory1.rowset.fields["description"]
+      height = 1
+      left = 18.5714
+      top = 3.2273
+      width = 49.8571
+   endwith
+
+   this.MYTEXTLABEL2 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL2)
+      height = 0.9545
+      left = 1.2857
+      top = 4.4545
+      width = 16.2857
+      text = "Quantity On Hand:"
+   endwith
+
+   this.MYSPINBOX1 = new MYSPINBOX(this)
+   with (this.MYSPINBOX1)
+      dataLink = form.inventorydatamodule1.inventory1.rowset.fields["qty"]
+      height = 1
+      left = 18.5714
+      top = 4.4091
+      width = 14.5714
+   endwith
+
+   this.MYTEXTLABEL3 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL3)
+      height = 0.9545
+      left = 1.2857
+      top = 5.8182
+      width = 16.2857
+      text = "Supplier:"
+   endwith
+
+   this.MYCOMBOBOX1 = new MYCOMBOBOX(this)
+   with (this.MYCOMBOBOX1)
+      dataLink = form.inventorydatamodule1.inventory1.rowset.fields["supplier id"]
+      height = 1.0909
+      left = 18.5714
+      top = 5.7273
+      width = 25.7143
+   endwith
+
+   this.MYTEXTLABEL4 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL4)
+      height = 0.9545
+      left = 1.2857
+      top = 7.1818
+      width = 16.2857
+      text = "Picture:"
+   endwith
+
+   this.MYIMAGE1 = new MYIMAGE(this)
+   with (this.MYIMAGE1)
+      height = 5.8182
+      left = 18.5714
+      top = 7.1818
+      width = 23.4286
+      dataSource = form.inventorydatamodule1.inventory1.rowset.fields["picture"]
+   endwith
+
+   this.rowset = this.inventorydatamodule1.inventory1.rowset
+endclass

@@ -1,0 +1,344 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 11/05/2002
+//
+parameter bModal
+local f
+f = new SetupForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class SetupForm of FORM
+   with (this)
+      onOpen = class::FORM_ONOPEN
+      height = 17.6364
+      width = 58
+      text = "Install Tutorial"
+      autoCenter = true
+      mdi = false
+      sizeable = false
+   endwith
+
+   this.RECTANGLE2 = new RECTANGLE(this)
+   with (this.RECTANGLE2)
+      left = 5
+      top = 8.5
+      width = 48
+      height = 5.5
+      text = "Database Files"
+   endwith
+
+   this.RECTANGLE1 = new RECTANGLE(this)
+   with (this.RECTANGLE1)
+      left = 5
+      top = 2
+      width = 48
+      height = 6
+      text = "Program Files"
+   endwith
+
+   this.MYTITLETEXT1 = new TEXT(this)
+   with (this.MYTITLETEXT1)
+      height = 1.5
+      left = 0
+      top = 0
+      width = 58
+      alignHorizontal = 1	// Center
+      text = "<h2>Install Tutorial</h2>"
+      borderStyle = 1	// Raised
+   endwith
+
+   this.MYTEXTLABEL1 = new TEXTLABEL(this)
+   with (this.MYTEXTLABEL1)
+      height = 1
+      left = 7
+      top = 3
+      width = 32
+      text = "Install Program file to:"
+   endwith
+
+   this.MYENTRYFIELD1 = new ENTRYFIELD(this)
+   with (this.MYENTRYFIELD1)
+      height = 1
+      left = 7
+      top = 4
+      width = 39
+      value = "C:\dBASETutorialApp"
+      maxLength = 50
+   endwith
+
+   this.MYPUSHBUTTON1 = new PUSHBUTTON(this)
+   with (this.MYPUSHBUTTON1)
+      onClick = class::MYPUSHBUTTON1_ONCLICK
+      height = 1.0909
+      left = 46
+      top = 4
+      width = 4
+      text = ""
+      upBitmap = "RESOURCE #136"
+      downBitmap = "RESOURCE #137"
+   endwith
+
+   this.TEXTLABEL1 = new TEXTLABEL(this)
+   with (this.TEXTLABEL1)
+      height = 1
+      left = 7
+      top = 9.5
+      width = 32
+      transparent = true
+      text = "Install database tables to:"
+      alignVertical = 1	// Middle
+   endwith
+
+   this.MYENTRYFIELD2 = new ENTRYFIELD(this)
+   with (this.MYENTRYFIELD2)
+      height = 1
+      left = 7
+      top = 10.5
+      width = 39
+      value = "C:\dBASETutorialApp\Tables"
+      maxLength = 50
+   endwith
+
+   this.MYPUSHBUTTON2 = new PUSHBUTTON(this)
+   with (this.MYPUSHBUTTON2)
+      onClick = class::MYPUSHBUTTON2_ONCLICK
+      height = 1.0909
+      left = 46
+      top = 10.5
+      width = 4
+      text = ""
+      upBitmap = "RESOURCE #136"
+      downBitmap = "RESOURCE #137"
+   endwith
+
+   this.TEXTLABEL2 = new TEXTLABEL(this)
+   with (this.TEXTLABEL2)
+      height = 1
+      left = 7
+      top = 5
+      width = 32
+      transparent = true
+      text = "Install object files to:"
+      alignVertical = 1	// Middle
+   endwith
+
+   this.MYENTRYFIELD3 = new ENTRYFIELD(this)
+   with (this.MYENTRYFIELD3)
+      height = 1
+      left = 7
+      top = 6
+      width = 39
+      value = "C:\dBASETutorialApp\Custom"
+      maxLength = 50
+   endwith
+
+   this.MYPUSHBUTTON3 = new PUSHBUTTON(this)
+   with (this.MYPUSHBUTTON3)
+      onClick = class::MYPUSHBUTTON3_ONCLICK
+      height = 1.0909
+      left = 46
+      top = 6
+      width = 4
+      text = ""
+      upBitmap = "RESOURCE #136"
+      downBitmap = "RESOURCE #137"
+   endwith
+
+   this.MYTEXTLABEL2 = new TEXTLABEL(this)
+   with (this.MYTEXTLABEL2)
+      height = 1
+      left = 7
+      top = 11.5
+      width = 17
+      text = "Database Alias"
+   endwith
+
+   this.MYENTRYFIELD4 = new ENTRYFIELD(this)
+   with (this.MYENTRYFIELD4)
+      enabled = false
+      height = 1
+      left = 7
+      top = 12.5
+      width = 33
+      value = "dBASETutorial"
+   endwith
+
+   this.MYPUSHBUTTON4 = new PUSHBUTTON(this)
+   with (this.MYPUSHBUTTON4)
+      onClick = class::MYPUSHBUTTON4_ONCLICK
+      height = 1.0909
+      left = 30
+      top = 14.5
+      width = 13
+      text = "Install"
+   endwith
+
+   this.MYPUSHBUTTON5 = new PUSHBUTTON(this)
+   with (this.MYPUSHBUTTON5)
+      onClick = class::MYPUSHBUTTON5_ONCLICK
+      height = 1.0909
+      left = 43
+      top = 14.5
+      width = 13
+      text = "Exit"
+   endwith
+
+
+   function form_onOpen
+      this.Rootfolder   = set("DIRE") + "\Root\"
+      this.Objectfolder = set("DIRE") + "\Objects\"
+      this.Tablefolder  = set("DIRE") + "\Tables\"
+
+      return
+
+   function MYPUSHBUTTON1_onClick
+      local cDestination
+      cDestination = GetDirectory()
+      form.myEntryField1.value = cDestination
+      form.myEntryField2.value = cDestination + "\Tables"
+      form.myEntryField3.value = cDestination + "\Custom"
+      return
+
+   function MYPUSHBUTTON2_onClick
+      local cDestination
+      cDestination = GetDirectory()
+      form.myEntryField2.value = cDestination 
+      return
+
+   function MYPUSHBUTTON3_onClick
+      local cDestination
+      cDestination = GetDirectory()
+      form.myEntryField3.value = cDestination 
+      return
+
+   function MYPUSHBUTTON4_onClick
+      private c
+      //  Make folders for files
+
+      // Make the program root folder
+      try 
+         c = "mkdir " + form.myEntryField1.value 
+         &c
+      catch(Exception e )
+      endtry
+
+      // Make the program object folder if the object 
+      // are not stored in the root
+      if form.myEntryField1.value # form.myEntryField3.value 
+         try
+            c = "mkdir " + form.myEntryField3.value 
+            &c
+         catch(Exception e )
+         endtry
+
+      endif
+
+      // Make the database folder
+      try
+         c = "mkdir " + form.myEntryField2.value 
+         &c
+      catch(Exception e )
+      endtry
+
+      
+      
+
+      //  Copy files to folders
+      oFile = new file()
+      if right(form.myEntryField1.value ,1) == "\"
+         f = form.myEntryField1.value
+      else
+         f = form.myEntryField1.value + "\"
+      endif
+
+      oFile.copy( form.rootfolder + "tutorial.exe", f + "tutorial.exe")
+      oFile.copy( form.rootfolder + "tutorial.ini", f + "tutorial.ini")
+      oFile.copy( form.rootfolder + "statements.sql", f + "statements.sql")
+
+      aFiles = new array()
+      nArraySize = aFiles.dir(form.objectfolder  + "*.*")
+
+      //  Set path for object files
+      if right(form.myEntryField3.value ,1) == "\"
+         f = form.myEntryField3.value
+      else
+         f = form.myEntryField3.value + "\"
+      endif
+
+      for i = 1 to aFiles.size/5 
+         if upper(right(aFiles[i,1],1)) == 'O' 
+
+            oFile.copy( form.objectfolder + aFiles[i,1], f + aFiles[i,1] )
+
+         endif
+      next
+
+      //  Modify INI file  (add Object Path)
+      set procedure to Ini.Cc additive
+      oINI = new INI( f + "Tutorial.ini")
+
+      aOPArray = new Array()
+      aOPArray.add(form.myEntryField3.value)
+      aOPArray.add(form.myEntryField1.value)
+      for i = 0 to aOPArray.size - 1
+
+         oINI.SetValue("ObjectPath", "objpath" + i, ["] + aOPArray[i+1] + ["])
+
+      next
+
+
+
+      aFiles = new array()
+      nArraySize = aFiles.dir(form.TableFolder  + "*.*")
+
+      //  Set path for database files
+      if right(form.myEntryField2.value ,1) == "\"
+         f = form.myEntryField2.value
+      else
+         f = form.myEntryField2.value + "\"
+      endif
+
+      for i = 1 to aFiles.size/5 
+
+            oFile.copy( form.TableFolder + aFiles[i,1], f + aFiles[i,1] )
+
+      next
+
+
+
+
+      //  Create database alias
+      set procedure to BDEAlias.cc additive
+      // used in alias:
+      cPath = form.myEntryField2.value
+      cName = form.myEntryField4.value
+      // create alias if needed ...
+      b = new bdealias()
+
+      if not b.databaseFound( cName )
+         b.createAlias( cName, cPath )
+      else
+         if b.databaseDir( cName ) # cPath
+            b.deleteAlias( cName )
+            b.createAlias( cName, cPath )
+         endif
+      endif
+
+      msgbox("Done")
+
+      return
+
+   function MYPUSHBUTTON5_onClick
+      local x
+      // x = msgbox("Are you sure you want to exit?","Exit Install",36)
+      x = 6
+      if x == 6
+         form.close()
+      endif
+      return
+endclass

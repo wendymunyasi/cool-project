@@ -1,0 +1,310 @@
+/*
+    STATEMENTS.REP
+    This report is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 06/27/2001
+//
+local r
+r = new STATEMENTSREPORT()
+r.render()
+
+class STATEMENTSREPORT of BASECREPORT from base.crp
+   set procedure to CustomReportControls.cc additive
+   set procedure to :ReportControls:REPORT.CC additive
+   set procedure to STATEMENTS.DMD additive
+   this.STATEMENTSDATAMODULE1 = new STATEMENTSDATAMODULE()
+   this.STATEMENTSDATAMODULE1.parent = this
+   with (this.printer)
+      duplex = 1	// None
+      orientation = 1	// Portrait
+      paperSource = 15
+      paperSize = 1
+      resolution = 4	// High
+      color = 2	// Color
+      trueTypeFonts = 2	// Download
+   endwith
+
+   this.STREAMSOURCE1.GROUP1 = new GROUP(this.STREAMSOURCE1)
+   with (this.STREAMSOURCE1.GROUP1)
+      groupBy = "Customer ID"
+   endwith
+
+   with (this.STREAMSOURCE1.GROUP1.headerBand)
+      height = 1.5937
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMRECTANGLESHAPE1 = new KMRECTANGLESHAPE(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMRECTANGLESHAPE1)
+      left = 0.6771
+      top = 0.5312
+      width = 6.3958
+      height = 0.9896
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT1)
+      canRender = class::KMFIELDTEXT1_CANRENDER
+      left = 0.8021
+      top = 0.6146
+      width = 2.6459
+      text = {||this.form.statementsdatamodule1.statements1.rowset.fields["Last Name"].value}
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT2 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT2)
+      canRender = class::KMFIELDTEXT2_CANRENDER
+      left = 0.8021
+      top = 0.8333
+      width = 2.9896
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT3 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT3)
+      canRender = class::KMFIELDTEXT3_CANRENDER
+      left = 2.5
+      top = 0.125
+      width = 1.2188
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT4 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT4)
+      canRender = class::KMFIELDTEXT4_CANRENDER
+      left = 4.5208
+      top = 0.125
+   endwith
+
+   with (this.STREAMSOURCE1.GROUP1.footerBand)
+      onRender = class::FOOTERBAND_ONRENDER
+      height = 1
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT1 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT1)
+      height = 0.18
+      left = 0.0208
+      top = 0.7666
+      width = 7.4479
+      alignHorizontal = 1	// Center
+      text = "Thank You for shopping with us."
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMLINE1 = new KMLINE(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMLINE1)
+      left = 2.3958
+      right = 7.0833
+      top = 0.0729
+      bottom = 0.0729
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDTEXT1)
+      left = 5.4896
+      top = 0.1826
+      width = 1.2188
+      alignHorizontal = 2	// Right
+      function = "999,999.99"
+      text = {||this.parent.parent.agSum({||this.parent.rowset.fields["ItemPrice"].value})}
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT2 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT2)
+      height = 0.18
+      left = 4.9271
+      top = 0.1722
+      width = 1.1979
+      text = "Statement Total: "
+   endwith
+
+   this.STREAMSOURCE1.GROUP2 = new GROUP(this.STREAMSOURCE1)
+   with (this.STREAMSOURCE1.GROUP2)
+      groupBy = "Order Date"
+   endwith
+
+   with (this.STREAMSOURCE1.GROUP2.headerBand)
+      height = 0.9792
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.KMRECTANGLESHAPE1 = new KMRECTANGLESHAPE(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.KMRECTANGLESHAPE1)
+      left = 1.4896
+      top = 0.1264
+      width = 5.5937
+      height = 0.4063
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDTEXT1)
+      left = 1.6458
+      top = 0.3035
+      width = 2.0209
+      text = {||this.form.statementsdatamodule1.statements1.rowset.fields["order date"].value}
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.LINE1 = new LINE(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.LINE1)
+      left = 2.3646
+      right = 7.0938
+      top = 0.6354
+      bottom = 0.6354
+      width = 1
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.LINE2 = new LINE(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.LINE2)
+      left = 2.3646
+      right = 7.0938
+      top = 0.9167
+      bottom = 0.9167
+      width = 1
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT1 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT1)
+      height = 0.18
+      left = 3.573
+      top = 0.6993
+      width = 1.375
+      alignHorizontal = 0	// Left
+      fontBold = true
+      text = "Type of Mug"
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT2 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT2)
+      height = 0.18
+      left = 4.8854
+      top = 0.6993
+      width = 0.75
+      fontBold = true
+      text = "Quantity"
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT3 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT3)
+      height = 0.18
+      left = 5.9792
+      top = 0.7097
+      width = 0.75
+      fontBold = true
+      text = "Price"
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT4 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT4)
+      height = 0.3438
+      left = 1.5417
+      top = 0.1264
+      width = 1.2917
+      alignHorizontal = 0	// Left
+      text = "Date of Order: "
+   endwith
+
+   this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT5 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP2.headerBand)
+   with (this.STREAMSOURCE1.GROUP2.headerBand.KMFIELDHEADINGTEXT5)
+      height = 0.18
+      left = 2.4167
+      top = 0.6986
+      width = 0.75
+      text = "Item ID"
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT1)
+      left = 4.8645
+      top = 0.0208
+      width = 0.7605
+      alignHorizontal = 2	// Right
+      picture = "99999"
+      text = {||this.form.statementsdatamodule1.statements1.rowset.fields["qty"].value}
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT2 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT2)
+      left = 3.573
+      top = 0.0208
+      width = 1.5001
+      text = {||this.form.statementsdatamodule1.statements1.rowset.fields["item id"].value}
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT3 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT3)
+      left = 5.8541
+      top = 0.0208
+      width = 0.8646
+      alignHorizontal = 2	// Right
+      picture = "999,999.99"
+      text = {||this.form.statementsdatamodule1.statements1.rowset.fields["itemprice"].value}
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT4 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT4)
+      left = 2.3542
+      top = 0.0111
+      width = 0.8126
+      alignHorizontal = 2	// Right
+      text = {||this.form.statementsdatamodule1.statements1.rowset.fields["itemid2"].value}
+   endwith
+
+   form.STREAMFRAME1 = form.pagetemplate1.streamframe1
+
+   with (this.PAGETEMPLATE1.KMTITLETEXT11)
+      text = "Statement of Account"
+      form.KMTITLETEXT11 = form.pagetemplate1.kmtitletext11
+   endwith
+
+   form.KMDATETEXT1 = form.pagetemplate1.kmdatetext1
+
+   form.PAGENUMBER1 = form.pagetemplate1.pagenumber1
+
+   this.firstPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.nextPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.streamframe1.streamSource = this.form.streamsource1
+   this.form.streamsource1.rowset = this.form.statementsdatamodule1.statements1.rowset
+
+   function FOOTERBAND_onRender
+      this.parent.parent.beginNewFrame()
+      return
+
+   function KMFIELDTEXT1_canRender
+      this.text = trim(this.form.statementsdatamodule1.statements1.rowset.fields["First Name"].value) +;
+      " " + this.form.statementsdatamodule1.statements1.rowset.fields["Last Name"].value
+      return true
+
+   function KMFIELDTEXT2_canRender
+      // This one's going to be a bit more complicated,
+      // but it will solve some issues in getting
+      // everything to "lay out" properly:
+      local f
+      f = form.statementsDataModule1.statements1.rowset.fields
+      this.text := new string( f["street1"].value )
+      if not empty( f["street2"].value )
+         this.text += "<BR> " + new string( f["street2"].value )
+      endif
+      if not empty( f["city"].value )
+         this.text += "<BR> " + ;
+                      new string( trim( f["city"].value ) ) + ", " +;
+                      f["state id"].value.rightTrim()  + "  " + ;
+                      new string( f["postal"].value ) 
+         if not f["country id"].value.rightTrim() == "United States" 
+            this.text := this.text.rightTrim()
+            this.text += "   <B>"+f["country id"].value+"</B>"
+         endif
+      endif      
+      
+      return true
+
+   function KMFIELDTEXT3_canRender
+      if type("_app.start") # "U"
+         this.text = "From: " + _app.start
+      endif
+      return true
+
+   function KMFIELDTEXT4_canRender
+      if type("_app.stop") # "U"
+         this.text = "To: " + _app.stop
+      endif
+      
+      return true
+endclass

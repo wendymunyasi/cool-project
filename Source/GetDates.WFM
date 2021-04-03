@@ -1,0 +1,134 @@
+/*
+    GETDATES.WFM
+    This form is part of the dBBASE SE tutorial project. 
+
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 05/06/2001
+//
+parameter bModal
+local f
+f = new GetdatesForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class GetdatesForm of DIALOGFORMCFORM from DialogForm.cfm
+   set procedure to MyControls.cc additive
+   with (this)
+      onOpen = class::FORM_ONOPEN
+      height = 7.8636
+      width = 46.8571
+   endwith
+
+   with (this.MYTITLETEXT1)
+      height = 1.3182
+      left = 0
+      top = 0
+      width = 46.2857
+      anchor = 2	// Top
+      text = "Desired Date Range"
+   endwith
+
+   with (this.PBSAVE)
+      onClick = class::PBSAVE_ONCLICK
+      left = 10
+      top = 5
+   endwith
+
+   with (this.PBCANCEL)
+      onClick = class::PBCANCEL_ONCLICK
+      left = 25
+      top = 5
+   endwith
+
+   this.SPINBOXSTART = new MYSPINBOX(this)
+   with (this.SPINBOXSTART)
+      height = 0.9545
+      left = 7.8571
+      top = 2
+      width = 13
+      picture = ""
+      fontSize = 10
+      value = {  /  /    }
+   endwith
+
+   this.SPINBOXSTOP = new MYSPINBOX(this)
+   with (this.SPINBOXSTOP)
+      height = 0.9545
+      left = 27.2857
+      top = 2
+      width = 13
+      picture = ""
+      fontSize = 10
+      value = {  /  /    }
+   endwith
+
+   this.TEXTSTARTDOW = new MYTEXTLABEL(this)
+   with (this.TEXTSTARTDOW)
+      height = 0.9545
+      left = 7.8571
+      top = 3.0909
+      width = 13
+      text = "Start Date"
+      colorNormal = "BLACK/BTNFACE"
+      fontBold = true
+      alignHorizontal = 0	// Left
+   endwith
+
+   this.TEXTSTOPDOW = new MYTEXTLABEL(this)
+   with (this.TEXTSTOPDOW)
+      height = 0.9545
+      left = 27.2857
+      top = 3.0909
+      width = 13
+      text = "End Date"
+      colorNormal = "BLACK/BTNFACE"
+      fontBold = true
+      alignHorizontal = 0	// Left
+   endwith
+
+
+   function form_onOpen
+
+      form.SpinboxStart.value  = ctod('12/01/1997') 
+      form.SpinboxStop.value   = ctod('12/31/1997')
+
+
+      return
+
+   function PBCANCEL_onClick
+      // override method in super class
+
+      _app.Start = {}
+      _app.Stop  = {}
+      form.close()
+
+      return
+
+   function PBSAVE_onClick
+      // override super class
+      _app.Start = form.SpinboxStart.value
+      _app.Stop  = form.SpinboxStop.value
+
+      // call report
+      set procedure to preview.wfm additive
+      set procedure to statements.rep additive
+      fPreview = new PreviewForm()
+      // to open with ReadModal()
+      fPreview.bModal = true 
+      fPreview.viewer.fileName := "statements.rep" 
+      fPreview.Open()
+
+      //close procedure statements.rep
+
+      //_app.Start = {}
+      //_app.Stop  = {}
+      form.close()
+
+      return
+endclass

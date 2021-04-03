@@ -1,0 +1,326 @@
+/*
+    INVOICEEDIT.WFM
+    This form is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 05/28/2001
+//
+parameter bModal
+local f
+f = new InvoiceEditForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class InvoiceEditForm of DIALOGFORMCFORM from DialogForm.cfm
+   set procedure to MyControls.cc additive
+   with (this)
+      onOpen = class::FORM_ONOPEN
+      height = 11.6364
+      width = 62
+      text = "Invoice"
+   endwith
+
+   this.DATABASE1 = new DATABASE()
+   this.DATABASE1.parent = this
+   with (this.DATABASE1)
+      left = 53
+      top = 1.4091
+      databaseName = "dbaseTutorial"
+      active = true
+   endwith
+
+   this.INVOICE1 = new QUERY()
+   this.INVOICE1.parent = this
+   with (this.INVOICE1)
+      left = 55.1429
+      top = 1.8182
+      database = form.database1
+      sql = "select * from invoice.dbf"
+      active = true
+   endwith
+
+   with (this.INVOICE1.rowset)
+      canNavigate = {; return false}
+   endwith
+
+   with (this.MYTITLETEXT1)
+      height = 1.5
+      left = 0
+      top = 0
+      width = 62
+      text = "Invoice"
+   endwith
+
+   with (this.PBSAVE)
+      left = 18
+   endwith
+
+   with (this.PBCANCEL)
+      left = 33
+   endwith
+
+   this.MYTEXTLABEL1 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL1)
+      height = 0.9545
+      left = 0.7143
+      top = 1.9091
+      width = 16
+      text = "Invoice Number:"
+   endwith
+
+   this.MYTEXTLABEL2 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL2)
+      height = 0.9545
+      left = 30.5714
+      top = 1.9091
+      width = 10.8571
+      text = "Order Date:"
+   endwith
+
+   this.MYENTRYFIELD1 = new MYENTRYFIELD(this)
+   with (this.MYENTRYFIELD1)
+      dataLink = form.invoice1.rowset.fields["order date"]
+      height = 1
+      left = 41.7143
+      top = 1.9091
+      width = 10.5714
+   endwith
+
+   this.MYCONTAINER1 = new MYCONTAINER(this)
+   with (this.MYCONTAINER1)
+      left = 5.2857
+      top = 3.4091
+      width = 52.4286
+      height = 5.9545
+   endwith
+
+   this.MYCONTAINER1.VISA = new MYRADIOBUTTON(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.VISA)
+      onChange = class::VISA_ONCHANGE
+      height = 1.0909
+      left = 0.7143
+      top = 1.3182
+      width = 15.8571
+      text = "Visa"
+      group = true
+      value = true
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.MASTERCARD = new MYRADIOBUTTON(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.MASTERCARD)
+      onChange = class::VISA_ONCHANGE
+      height = 1.0909
+      left = 0.7143
+      top = 2.3182
+      width = 15.8571
+      text = "MasterCard"
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.DISCOVER = new MYRADIOBUTTON(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.DISCOVER)
+      onChange = class::VISA_ONCHANGE
+      height = 1.0909
+      left = 0.7143
+      top = 3.3636
+      width = 15.8571
+      text = "Discover/Nova"
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.CHECK = new MYRADIOBUTTON(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.CHECK)
+      onChange = class::VISA_ONCHANGE
+      height = 1.0909
+      left = 0.7143
+      top = 4.3636
+      width = 15.8571
+      text = "Check"
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.MYTEXTLABEL1 = new MYTEXTLABEL(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.MYTEXTLABEL1)
+      height = 0.9545
+      left = 17.7143
+      top = 1.3182
+      width = 13.4286
+      text = "Name on Card:"
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.MYTEXTLABEL2 = new MYTEXTLABEL(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.MYTEXTLABEL2)
+      height = 0.9545
+      left = 17.7143
+      top = 2.3182
+      width = 13.4286
+      text = "Card Number:"
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.MYTEXTLABEL3 = new MYTEXTLABEL(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.MYTEXTLABEL3)
+      height = 0.9545
+      left = 17.7143
+      top = 3.3636
+      width = 13.4286
+      text = "Exp. Date:"
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.MYTEXTLABEL4 = new MYTEXTLABEL(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.MYTEXTLABEL4)
+      height = 0.9545
+      left = 16.2857
+      top = 4.3636
+      width = 14.8571
+      text = "Check Number:"
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.CARDNAME = new MYENTRYFIELD(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.CARDNAME)
+      dataLink = form.invoice1.rowset.fields["card name"]
+      height = 1
+      left = 31.2857
+      top = 1.3182
+      width = 19.4286
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.CARDNUM = new MYENTRYFIELD(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.CARDNUM)
+      dataLink = form.invoice1.rowset.fields["card number"]
+      height = 1
+      left = 31.2857
+      top = 2.3182
+      width = 19.4286
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.CARDEXP = new MYENTRYFIELD(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.CARDEXP)
+      dataLink = form.invoice1.rowset.fields["card exp"]
+      height = 1
+      left = 31.2857
+      top = 3.3636
+      width = 8
+      pageno = 0
+   endwith
+
+   this.MYCONTAINER1.CHECKNUM = new MYSPINBOX(this.MYCONTAINER1)
+   with (this.MYCONTAINER1.CHECKNUM)
+      dataLink = form.invoice1.rowset.fields["check number"]
+      height = 1
+      left = 31.2857
+      top = 4.3636
+      width = 9.1429
+      picture = "99999"
+      pageno = 0
+   endwith
+
+   this.MYENTRYFIELD2 = new MYDISABLEDENTRYFIELD(this)
+   with (this.MYENTRYFIELD2)
+      dataLink = form.invoice1.rowset.fields["invoice id"]
+      height = 1
+      left = 17.1429
+      top = 1.9091
+      width = 10
+      picture = "99999"
+   endwith
+
+   this.rowset = this.invoice1.rowset
+
+   function form_onOpen
+      // This code will be used to see if
+      // the form is being opened properly at all (in the
+      // first place -- it's supposed to be called
+      // from "Invoice.wfm"), and if so, if we are
+      // supposed to be in append or beginEdit
+      // mode ...
+      if type( "form.Mode" ) == "C" // character
+         if form.mode == "Append"
+            form.rowset.beginAppend()
+            // store the customer id:
+            form.rowset.fields["Customer ID"].value := form.customerID
+            // set default value for order date (today's date)
+            form.rowset.fields["Order Date"].value := date()
+            // default value for Payment Type is "Visa"
+            form.rowset.fields["Pay Type"].value   := "VI"
+            form.MYContainer1.VISA.value       := true
+            form.rowset.refreshControls()
+         else
+            // find the correct row:
+            form.rowset.canNavigate := {|| true }
+            form.rowset.indexName   := "invoice id"
+            form.rowset.findKey( form.InvoiceID )
+            form.rowset.canNavigate := {|| false }
+            form.rowset.beginEdit()
+         endif
+      else
+         form.rowset.first() // just so we're at the top
+         //msgbox( "You shouldn't run this form except from invoice.wfm",;
+                 "Don't do that!", 16 )
+      endif 
+      class::MorphFields() // make sure we get 
+                           // the morphing and such ...
+      class::VISA_onChange() // make sure this gets set ...
+      
+   return
+
+   function VISA_onChange
+      // This code will be attached to each of the payment
+      // type radiobuttons.
+      local lCheck
+      // is the "CHECK" radiobutton set to true?
+      lCheck = form.MYContainer1.check.value
+
+      // The first part of the code here is going to
+      // deal with enabling/disabling the items to
+      // the right of the radiobuttons -- if
+      // we do NOT have a check, we DO have
+      // a credit card ...:
+      with ( form.MYContainer1 )
+         CARDNAME.enabled := ( not lCheck )
+         CARDNUM.enabled  := ( not lCheck )
+         CARDEXP.enabled  := ( not lCheck )
+         CHECKNUM.enabled := ( lCheck )
+      endwith
+      
+      // Next we deal with "morphing" the field,
+      // so that what is in the payField is 
+      // based on whichever radiobutton is
+      // selected:
+      do case
+         case form.MYContainer1.VISA.value
+              form.rowset.fields["Pay Type"].value := "VI"
+         case form.MYContainer1.MASTERCARD.value
+              form.rowset.fields["Pay Type"].value := "MC"
+         case form.MYContainer1.DISCOVER.value
+              form.rowset.fields["Pay Type"].value := "DN"
+         otherwise
+              form.rowset.fields["Pay Type"].value := "CH"
+      endcase
+   return
+
+   function MorphFields
+      // quick routine to ensure that the radiobuttons
+      // show the appropriate value on startup:
+      do case
+         case form.rowset.fields["Pay Type"].value == "VI"
+              form.MYContainer1.VISA.value := true
+         case form.rowset.fields["Pay Type"].value == "MC"
+              form.MYContainer1.MASTERCARD.value := true
+         case form.rowset.fields["Pay Type"].value == "DN"
+              form.MYContainer1.DISCOVER.value := true
+         otherwise
+              form.MYContainer1.CHECK.value := true
+      endcase
+endclass

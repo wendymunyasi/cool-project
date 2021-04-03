@@ -1,0 +1,258 @@
+/*
+    SUPPLIERS.REP
+    This report is part of the dBBASE SE tutorial project. 
+*/
+
+** END HEADER -- do not remove this line
+//
+// Generated on 01/05/1999
+//
+local r
+r = new SuppliersREPORT()
+r.render()
+
+class SuppliersREPORT of BASECREPORT from "base.crp"
+   set procedure to Supplier.dmd additive
+   set procedure to ":ReportControls:Report.cc" additive
+   set procedure to CustomReportControls.cc additive
+
+
+   this.SUPPLIERDATAMODULE1 = new SUPPLIERDATAMODULE()
+   this.SUPPLIERDATAMODULE1.parent = this
+   with (this.SUPPLIERDATAMODULE1)
+      left =  1.1354
+      top =  0.5208
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT1 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT1)
+      height = 0.18
+      left = 0.0208
+      top = 0.0312
+      width = 0.75
+      fontBold = true
+      text = "Company: "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT1)
+      height = 0.18
+      left = 0.8542
+      top = 0.0312
+      width = 2.323
+      text = {||form.streamsource1.rowset.fields["Company"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT2 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT2)
+      height = 0.18
+      left = 3.4062
+      top = 0.0521
+      width = 0.9896
+      fontBold = true
+      text = "Supplier ID: "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT2 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT2)
+      height = 0.18
+      left = 4.5521
+      top = 0.0312
+      width = 0.5313
+      text = {||form.streamsource1.rowset.fields["Supplier ID"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT3 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT3)
+      height = 0.1771
+      left = 0.0208
+      top = 0.2188
+      width = 0.75
+      fontBold = true
+      text = "Contact: "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT3 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT3)
+      left = 0.8542
+      top = 0.2188
+      width = 1.4688
+      text = {||form.streamsource1.rowset.fields["Contact"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT4 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT4)
+      height = 0.1771
+      left = 3.6458
+      top = 0.2188
+      width = 0.75
+      fontBold = true
+      text = "Email: "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT4 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT4)
+      left = 4.5521
+      top = 0.2188
+      width = 2.5625
+      text = {||form.streamsource1.rowset.fields["Email"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT5 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT5)
+      height = 0.1771
+      left = 0.0313
+      top = 0.4167
+      width = 0.75
+      fontBold = true
+      text = "Phone: "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT5 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT5)
+      left = 0.8542
+      top = 0.4167
+      text = {||form.streamsource1.rowset.fields["Phone"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT6 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT6)
+      height = 0.1771
+      left = 3.6979
+      top = 0.4167
+      width = 0.75
+      fontBold = true
+      text = "Fax: "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT6 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT6)
+      left = 4.5521
+      top = 0.4167
+      text = {||form.streamsource1.rowset.fields["Fax"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT7 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT7)
+      height = 0.1771
+      left = 0.0313
+      top = 0.6042
+      width = 0.75
+      fontBold = true
+      text = "Address: "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT7 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT7)
+      left = 0.8542
+      top = 0.6146
+      width = 2.0105
+      text = {||form.streamsource1.rowset.fields["street1"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT8 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT8)
+      left = 0.8542
+      top = 0.8125
+      width = 1.9376
+      suppressIfBlank = true
+      text = {||form.streamsource1.rowset.fields["Street2"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT9 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT9)
+      canRender = class::KMFIELDTEXT9_CANRENDER
+      left = 0.8543
+      top = 0.9688
+      width = 2.9375
+      text = {||"city, state postal"}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT10 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT10)
+      left = 0.8542
+      top = 1.1563
+      width = 1.5626
+      text = {||form.streamsource1.rowset.fields["country id"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMLINE1 = new KMLINE(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMLINE1)
+      left = 0.1
+      right = 7
+      top = 0
+      bottom = 0
+      width = 2
+   endwith
+
+
+
+
+
+   with (this.PAGETEMPLATE1.STREAMFRAME1)
+      height = 8.6875
+      left = 0
+      top = 0.9688
+      width = 7.5
+      form.STREAMFRAME1 = form.pagetemplate1.streamframe1
+   endwith
+
+
+   with (this.PAGETEMPLATE1.KMTITLETEXT11)
+      text = "Suppliers"
+      form.KMTITLETEXT11 = form.pagetemplate1.kmtitletext11
+   endwith
+
+
+
+      form.KMDATETEXT1 = form.pagetemplate1.kmdatetext1
+
+
+      form.PAGENUMBER1 = form.pagetemplate1.pagenumber1
+
+   with (this.printer)
+      duplex = 1	// None
+      orientation = 1	// Portrait
+      paperSource = 15
+      paperSize = 1
+      resolution = 4	// High
+      color = 2	// Color
+      trueTypeFonts = 2	// Download
+   endwith
+
+
+
+
+   this.firstPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.nextPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.streamframe1.streamSource = this.form.STREAMSOURCE1
+   this.form.STREAMSOURCE1.rowset = this.form.SUPPLIERDATAMODULE1.supplier1.rowset
+
+   function KMFIELDTEXT9_canRender
+      f = form.streamsource1.rowset.fields
+      this.text = ""
+      this.text += new string( trim( f["CITY"].value ) )
+      this.text += ", "
+      this.text += new string( trim( f["STATE ID"].value ) )
+      this.text += "  "
+      this.text += new string( f["POSTAL"].value )
+      return true
+endclass

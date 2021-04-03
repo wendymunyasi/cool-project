@@ -1,0 +1,36 @@
+/*
+    SUPPLIER.DMD
+    This datamodule is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 06/27/2001
+//
+class SupplierDataModule of BASEDATAMODULE from base.cdm
+   with (this.DBASETUTORIAL1)
+      left = 21
+      top = 16
+      width = 115
+      height = 112
+   endwith
+
+   this.SUPPLIER1 = new QUERY()
+   this.SUPPLIER1.parent = this
+   with (this.SUPPLIER1)
+      left = 175
+      top = 59
+      width = 150
+      height = 138
+      database = form.dbaseTutorial1
+      sql = 'select * from "supplier.DBF"'
+      active = true
+   endwith
+
+   with (this.SUPPLIER1.rowset)
+      fields["State ID"].lookupSQL = "select * from state"
+      fields["Country ID"].lookupSQL = "select * from country"
+      indexName = "COMPANY"
+   endwith
+
+   this.rowset = this.supplier1.rowset
+endclass

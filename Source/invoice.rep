@@ -1,0 +1,364 @@
+/*
+    INVOICE.REP
+    This report is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 03/17/2001
+//
+local r
+r = new InvoiceReport()
+r.render()
+
+class InvoiceReport of BASECREPORT from "base.crp"
+   set procedure to CustomReportControls.cc additive
+   set procedure to :ReportControls:REPORT.CC additive
+   set procedure to InvoiceRep.dmd additive
+   with (this)
+      title = "Tutorial Invoice"
+   endwith
+
+
+   this.InvoiceRepDataModule1 = new InvoiceRepDataModule()
+   this.InvoiceRepDataModule1.parent = this
+   with (this.InvoiceRepDataModule1)
+      left =  1.1354
+      top =  0.5208
+   endwith
+
+   with (this.printer)
+      duplex = 1	// None
+      orientation = 1	// Portrait
+      paperSource = 15
+      paperSize = 1
+      resolution = 4	// High
+      color = 2	// Color
+      trueTypeFonts = 2	// Download
+   endwith
+
+   this.STREAMSOURCE1.GROUP1 = new GROUP(this.STREAMSOURCE1)
+   with (this.STREAMSOURCE1.GROUP1)
+      groupBy = "Invoice ID"
+   endwith
+
+   with (this.STREAMSOURCE1.GROUP1.headerBand)
+      beginNewFrame = true
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT1)
+      left = 0.0313
+      top = 0.0313
+      width = 1.2188
+      fontSize = 12
+      fontBold = false
+      text = {||"Invoice #: "+form.streamsource1.rowset.fields["Invoice ID"].value}
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT2 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT2)
+      left = 0.0313
+      top = 0.2813
+      width = 1.9376
+      fontSize = 12
+      text = {||"Order Date: "+form.streamsource1.rowset.fields["Order Date"].value}
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMRECTANGLESHAPE1 = new KMRECTANGLESHAPE(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMRECTANGLESHAPE1)
+      left = 0.7708
+      top = 0.625
+      width = 6.6354
+      height = 0.7709
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDHEADINGTEXT1 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDHEADINGTEXT1)
+      height = 0.18
+      left = 0.4271
+      top = 0.6563
+      width = 1.1146
+      fontBold = true
+      text = "Customer:"
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDHEADINGTEXT2 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDHEADINGTEXT2)
+      height = 0.1771
+      left = 0.8333
+      top = 0.8438
+      width = 0.75
+      text = "Name: "
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT3 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT3)
+      canRender = class::KMFIELDTEXT3_CANRENDER
+      left = 1.6875
+      top = 0.84
+      width = 1.6563
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDHEADINGTEXT3 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDHEADINGTEXT3)
+      height = 0.1771
+      left = 3.4063
+      top = 0.84
+      width = 0.75
+      text = "Address: "
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT4 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT4)
+      canRender = class::KMFIELDTEXT4_CANRENDER
+      left = 4.2813
+      top = 0.84
+      width = 3.0001
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMRECTANGLESHAPE2 = new KMRECTANGLESHAPE(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMRECTANGLESHAPE2)
+      left = 0.77
+      top = 1.4479
+      width = 6.64
+      height = 0.7188
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDHEADINGTEXT4 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDHEADINGTEXT4)
+      height = 0.18
+      left = 0.6875
+      top = 1.5104
+      width = 0.8958
+      fontBold = true
+      text = "Payment: "
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT5 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT5)
+      canRender = class::KMFIELDTEXT5_CANRENDER
+      left = 1.2396
+      top = 1.7083
+      width = 2.5
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT6 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT6)
+      canRender = class::KMFIELDTEXT6_CANRENDER
+      left = 3.9792
+      top = 1.7054
+      width = 1.5521
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT7 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT7)
+      canRender = class::KMFIELDTEXT7_CANRENDER
+      left = 1.2292
+      top = 1.9062
+      width = 2.7188
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT1 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT1)
+      height = 0.18
+      left = 2.2715
+      top = 0.0681
+      width = 2.5833
+      text = "Total Mugs at $10.00 Each:"
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDTEXT1)
+      left = 4.8965
+      top = 0.0472
+      width = 0.3542
+      alignHorizontal = 2	// Right
+      picture = "999"
+      text = {||this.parent.parent.agSum( {||this.parent.rowset.parent.parent.lineitem1.rowset.fields[ "qty"].value})}
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT2 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT2)
+      height = 0.18
+      left = 3.2819
+      top = 0.2764
+      width = 1.2188
+      fontBold = true
+      text = "Invoice Total:"
+   endwith
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDTEXT2 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDTEXT2)
+      left = 4.6361
+      top = 0.2764
+      width = 0.6563
+      alignHorizontal = 2	// Right
+      fontBold = true
+      text = {||"$ "+(this.parent.parent.agSum( {||this.parent.rowset.parent.parent.lineitem1.rowset.fields[ "qty"].value}))*10}
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT1 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT1)
+      canRender = {||this.parent.firstOnFrame}
+      height = 0.1771
+      left = 1.5
+      top = 0.0312
+      width = 0.75
+      suppressIfBlank = true
+      fontBold = true
+      fontUnderline = true
+      text = "Item ID "
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT2 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT2)
+      canRender = {||this.parent.firstOnFrame}
+      height = 0.1771
+      left = 2.5625
+      top = 0.0416
+      width = 0.75
+      suppressIfBlank = true
+      fontBold = true
+      fontUnderline = true
+      text = "Description "
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT3 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT3)
+      canRender = {||this.parent.firstOnFrame}
+      height = 0.1771
+      left = 4.4375
+      top = 0.0416
+      width = 0.75
+      suppressIfBlank = true
+      fontBold = true
+      fontUnderline = true
+      text = "Qty "
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT2 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT2)
+      left = 2.5833
+      top = 0.2188
+      width = 1.6355
+      text = {||form.InvoiceRepDataModule1.lineitem1.rowset.fields["Item ID"].value}
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT1)
+      left = 1.8229
+      top = 0.2083
+      width = 0.5105
+      text = {||form.InvoiceRepDataModule1.lineitem1.rowset.fields["Item ID"].lookupRowset.fields[1].value}
+   endwith
+
+   this.STREAMSOURCE1.detailBand.KMFIELDTEXT3 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDTEXT3)
+      left = 4.7813
+      top = 0.2188
+      width = 0.4792
+      text = {||form.InvoiceRepDataModule1.lineitem1.rowset.fields["Qty"].value}
+   endwith
+
+   with (this.PAGETEMPLATE1.STREAMFRAME1)
+      height = 8.9375
+      left = 0.0104
+      top = 0.7188
+      width = 7.5
+      form.STREAMFRAME1 = form.pagetemplate1.streamframe1
+   endwith
+
+   with (this.PAGETEMPLATE1.KMTITLETEXT11)
+      text = "Tutorial Invoice"
+      form.KMTITLETEXT11 = form.pagetemplate1.kmtitletext11
+   endwith
+
+   with (this.PAGETEMPLATE1.KMDATETEXT1)
+      height = 0.2083
+      left = 2.9688
+      top = 0.3542
+      width = 1.5625
+      text = {||"Date Printed: "+date()}
+      form.KMDATETEXT1 = form.pagetemplate1.kmdatetext1
+   endwith
+
+   form.PAGENUMBER1 = form.pagetemplate1.pagenumber1
+
+   this.firstPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.nextPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.streamframe1.streamSource = this.form.streamsource1
+   this.form.streamsource1.rowset = this.form.InvoiceRepDataModule1.invoice1.rowset
+
+   function KMFIELDTEXT3_canRender
+      local f
+      f = form.InvoiceRepDataModule1.customer1.rowset.fields
+      this.text := new string( trim( f["first name"].value ) )
+      this.text += " "
+      this.text += new string( f["last name"].value )
+   return true
+
+   function KMFIELDTEXT4_canRender
+      // This one's going to be a bit more complicated,
+      // but it will solve some issues in getting
+      // everything to "lay out" properly:
+      local f
+      f = form.InvoiceRepDataModule1.customer1.rowset.fields
+      this.text := new string( f["street1"].value )
+      if not empty( f["street2"].value )
+         this.text += "<BR> " + new string( f["street2"].value )
+      endif
+      if not empty( f["city"].value )
+         this.text += "<BR> " + ;
+                      new string( trim( f["city"].value ) ) + ", " +;
+                      f["state id"].value.rightTrim()  + "  " + ;
+                      new string( f["postal"].value ) 
+         if not f["country id"].value.rightTrim() == "United States" 
+            this.text := this.text.rightTrim()
+            this.text += "   <B>"+f["country id"].value+"</B>"
+         endif
+      endif      
+   return true
+
+   function KMFIELDTEXT5_canRender
+      local f
+      f = form.streamSource1.rowset.fields
+      do case
+         case f["pay type"].value == "CH"
+              this.text := "Check: "
+              this.text += f["check number"].value
+         case f["pay type"].value == "VI"
+              this.text := "Visa: "
+              this.text += f["card number"].value
+         case f["pay type"].value == "MC"
+              this.text := "MasterCard: "
+              this.text += f["card number"].value
+         case f["pay type"].value == "DN"
+              this.text := "Discover/Nova: "
+              this.text += f["card number"].value
+         otherwise
+              this.text := "Unknown payment type"
+      endcase
+   return true
+
+   function KMFIELDTEXT6_canRender
+      local f
+      f = form.streamSource1.rowset.fields
+      if f["pay type"].value == "CH"
+         return false
+      else
+         this.text := "Expiration: " +;
+                     new string( f["Card Exp"].value )
+      endif      
+   return true
+
+   function KMFIELDTEXT7_canRender
+      local f
+      f = form.streamSource1.rowset.fields
+      if f["pay type"].value == "CH"
+         return false
+      else
+         this.text := "Name on card: " +;
+                     new string( f["Card Name"].value )
+      endif      
+   return true
+endclass

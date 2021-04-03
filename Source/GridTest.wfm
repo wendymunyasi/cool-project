@@ -1,0 +1,108 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 11/13/2002
+//
+parameter bModal
+local f
+f = new GridTestForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class GridTestForm of FORM
+   with (this)
+      height = 19.8182
+      left = 19
+      top = 5.0455
+      width = 77.5714
+      text = ""
+   endwith
+
+   this.DBASESETUTORIAL1 = new DATABASE()
+   this.DBASESETUTORIAL1.parent = this
+   with (this.DBASESETUTORIAL1)
+      left = 58
+      top = 2
+      databaseName = "DBASESETUTORIAL"
+      active = true
+   endwith
+
+   this.CUSTOMER1 = new QUERY()
+   this.CUSTOMER1.parent = this
+   with (this.CUSTOMER1)
+      left = 59
+      top = 0.5
+      database = form.dbasesetutorial1
+      sql = "select * from customer.dbf"
+      active = true
+   endwith
+
+   this.ENTRYFIELD1 = new ENTRYFIELD(this)
+   with (this.ENTRYFIELD1)
+      height = 1
+      left = 6
+      top = 0.5
+      width = 26
+      value = "Entryfield1"
+   endwith
+
+   this.ENTRYFIELD2 = new ENTRYFIELD(this)
+   with (this.ENTRYFIELD2)
+      height = 1
+      left = 6
+      top = 2
+      width = 26
+      value = "Entryfield2"
+   endwith
+
+   this.GRID1 = new GRID(this)
+   with (this.GRID1)
+      onGotFocus = class::GRID1_ONGOTFOCUS
+      onLostFocus = class::GRID1_ONLOSTFOCUS
+      dataLink = form.customer1.rowset
+      columns["COLUMN1"] = new GRIDCOLUMN(form.GRID1)
+      columns["COLUMN1"].dataLink = form.customer1.rowset.fields["last name"]
+      columns["COLUMN1"].editorType = 1	// EntryField
+      columns["COLUMN1"].width = 28.5714
+      columns["COLUMN2"] = new GRIDCOLUMN(form.GRID1)
+      columns["COLUMN2"].dataLink = form.customer1.rowset.fields["first name"]
+      columns["COLUMN2"].editorType = 1	// EntryField
+      columns["COLUMN2"].width = 28.5714
+      columns["COLUMN3"] = new GRIDCOLUMN(form.GRID1)
+      columns["COLUMN3"].dataLink = form.customer1.rowset.fields["phone"]
+      columns["COLUMN3"].editorType = 1	// EntryField
+      columns["COLUMN3"].width = 28.5714
+      with (columns["COLUMN1"].headingControl)
+         value = "Last Name"
+      endwith
+
+      with (columns["COLUMN2"].headingControl)
+         value = "First Name"
+      endwith
+
+      with (columns["COLUMN3"].headingControl)
+         value = "Phone"
+      endwith
+
+      rowSelect = true
+      //colorRowSelect = "Black/White"
+      height = 8.5
+      left = 5
+      top = 4
+      width = 69
+   endwith
+
+   this.rowset = this.customer1.rowset
+
+   function GRID1_onGotFocus
+      // HighLightText/HighLight
+      this.colorRowSelect = "Black/Yellow"
+      return
+
+   function GRID1_onLostFocus
+      this.colorRowSelect = "Black/White"
+      return
+endclass

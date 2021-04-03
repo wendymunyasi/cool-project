@@ -1,0 +1,61 @@
+/*
+    ABOUT.WFM
+    This form is part of the dBBASE SE tutorial project. 
+
+    Note that if you load this in the designer the SET PROCEDURE
+    statements could change ... this might be an issue
+    if you move this application or this form elsewhere ...
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 11/01/2002
+//
+parameter bModal
+local f
+f = new aboutForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class aboutForm of DIALOGFORMCFORM from "DialogForm.cfm"
+   set procedure to MyControls.cc additive
+   with (this)
+      height = 8.7727
+      width = 44.5714
+      text = "About Tutorial"
+      autoCenter = true
+   endwith
+
+   with (this.MYTITLETEXT1)
+      text = "About Tutorial"
+   endwith
+
+   this.TEXT1 = new MYTEXT(this)
+   with (this.TEXT1)
+      height = 3.9545
+      left = 2
+      top = 2.0455
+      width = 40
+      wrap = true
+      alignHorizontal = 1	// Center
+      text = "<b>This is a tutorial project for dBASE Plus. </b> <br> The application was created by Ken Mayer and updated by Michael Nuwer. Enjoy!  <br> (October 25, 2002)"
+   endwith
+
+   this.CLOSEBUTTON1 = new MYPUSHBUTTON(this)
+   with (this.CLOSEBUTTON1)
+      onClick = class::CLOSEBUTTON1_ONCLICK
+      height = 1.1818
+      left = 20.1429
+      top = 7
+      width = 3.5714
+      text = "Ok"
+   endwith
+
+
+   function CLOSEBUTTON1_onClick
+      form.close()
+      return
+endclass

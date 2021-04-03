@@ -1,0 +1,88 @@
+/*
+    Base.CRP
+    This custom report is part of the dBBASE SE tutorial project. 
+
+*/
+
+class BaseCReport of REPORT custom
+   set procedure to CustomReportControls.cc additive
+   set procedure to :ReportControls:REPORT.CC additive
+   with (this)
+      metric = 3	// Inches
+      autoSort = false
+      scaleFontBold = false
+   endwith
+
+
+
+
+   with (this.printer)
+      duplex = 1	// None
+      orientation = 1	// Portrait
+      paperSource = 15
+      paperSize = 1
+      resolution = 4	// High
+      color = 2	// Color
+      trueTypeFonts = 2	// Download
+   endwith
+
+
+   this.PAGETEMPLATE1 = new PAGETEMPLATE(this)
+   with (this.PAGETEMPLATE1)
+      height = 11
+      width = 8.5
+      marginTop = 0.5
+      marginLeft = 0.5
+      marginBottom = 0.5
+      marginRight = 0.5
+      gridLineWidth = 0
+   endwith
+
+
+   this.PAGETEMPLATE1.STREAMFRAME1 = new STREAMFRAME(this.PAGETEMPLATE1)
+   with (this.PAGETEMPLATE1.STREAMFRAME1)
+      height = 8.9375
+      left = 0
+      top = 0.7188
+      width = 7.5
+      form.STREAMFRAME1 = form.pagetemplate1.streamframe1
+   endwith
+
+
+   this.PAGETEMPLATE1.KMTITLETEXT11 = new KMTITLETEXT1(this.PAGETEMPLATE1)
+   with (this.PAGETEMPLATE1.KMTITLETEXT11)
+      left = 1.9792
+      top = 0.0104
+      text = "Tutorial Custom Report"
+      form.KMTITLETEXT11 = form.pagetemplate1.kmtitletext11
+   endwith
+
+
+   this.PAGETEMPLATE1.KMDATETEXT1 = new KMDATETEXT(this.PAGETEMPLATE1)
+   with (this.PAGETEMPLATE1.KMDATETEXT1)
+      height = 0.2083
+      left = 3.1355
+      top = 0.3646
+      width = 1.1667
+      form.KMDATETEXT1 = form.pagetemplate1.kmdatetext1
+   endwith
+
+
+   this.PAGETEMPLATE1.PAGENUMBER1 = new PAGENUMBER(this.PAGETEMPLATE1)
+   with (this.PAGETEMPLATE1.PAGENUMBER1)
+      left = 3.4063
+      top = 9.7292
+      form.PAGENUMBER1 = form.pagetemplate1.pagenumber1
+   endwith
+
+
+   this.STREAMSOURCE1 = new STREAMSOURCE(this)
+
+
+
+
+
+   this.firstPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.nextPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.streamframe1.streamSource = this.form.STREAMSOURCE1
+endclass

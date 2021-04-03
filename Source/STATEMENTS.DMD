@@ -1,0 +1,79 @@
+/*
+    STATEMENTS.DMD
+    This datamodule is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 05/04/2001
+//
+class STATEMENTSDATAMODULE of BASEDATAMODULE from base.cdm
+   with (this)
+      left = -1
+      top = -1
+   endwith
+
+   with (this.DBASETUTORIAL1)
+      left = 21
+      top = 16
+      width = 115
+      height = 112
+   endwith
+
+   this.STATEMENTS1 = new QUERY()
+   this.STATEMENTS1.parent = this
+   with (this.STATEMENTS1)
+      onOpen = class::STATEMENTS1_ONOPEN
+      left = 180
+      top = 2
+      width = 150
+      height = 206
+      database = form.dbaseTutorial1
+      sql = "@Statements.sql"
+      active = true
+   endwith
+
+   with (this.STATEMENTS1.rowset)
+      canGetRow = class::ROWSET_CANGETROW
+      fields["State ID"].lookupSQL = "select * from state"
+      fields["Country ID"].lookupSQL = "select * from country"
+      fields["Item ID"].lookupSQL = "select inventory.'item id', inventory.'description' from inventory"
+      fields["ItemPrice"].beforeGetValue = class::ITEMPRICE_BEFOREGETVALUE
+      fields["ItemID2"].beforeGetValue = class::ITEMID2_BEFOREGETVALUE
+   endwith
+
+
+   function ItemID2_beforeGetValue
+
+      return (this.parent['Item ID'].lookuprowset.fields[1].value)
+
+   function ItemPrice_beforeGetValue
+
+      return (this.parent['Qty'].value * 10)
+
+   function rowset_canGetRow
+      local bYes
+      bYes = false
+      if type("_app.start") # "U"
+         if (this.fields['order date'].value >= _app.start) and ;
+            (this.fields['order date'].value <= _app.stop)
+
+            bYes = true
+         endif
+
+
+      else
+         // if there is no data range we will print
+         // all records.
+
+         bYes = true
+
+      endif
+      return bYes
+
+   function statements1_onOpen
+
+      class::calcField("ItemPrice",10)
+      class::calcField("ItemID2",5)
+      
+      return
+endclass

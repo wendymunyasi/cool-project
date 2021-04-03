@@ -1,0 +1,359 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 11/15/2002
+//
+parameter bModal
+local f
+f = new CustomControlsForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class CustomControlsForm of FORM
+   set procedure to MyControls.cc additive
+   with (this)
+      colorNormal = ""
+      height = 16.5455
+      left = 4.1429
+      top = 0.5
+      width = 75.5714
+      text = "CustomControls.wfm"
+   endwith
+
+   this.MYENTRYFIELD = new ENTRYFIELD(this)
+   with (this.MYENTRYFIELD)
+      onGotFocus = {;this.keyboard( "{Home}" )}
+      height = 1
+      left = 1
+      top = 0.5
+      width = 17
+      colorHighLight = "White/Blue"
+      value = "MyEntryfield"
+      selectAll = false
+   endwith
+
+   this.MYTEXTLABEL = new TEXTLABEL(this)
+   with (this.MYTEXTLABEL)
+      height = 1
+      left = 1
+      top = 3.5
+      width = 17
+      transparent = true
+      text = "MyTextlabel"
+      fontBold = true
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+   endwith
+
+   this.MYCOMBOBOX = new COMBOBOX(this)
+   with (this.MYCOMBOBOX)
+      onGotFocus = {;this.colorNormal = "White/Blue"}
+      onLostFocus = {;this.colorNormal = "WindowText/Window"}
+      height = 1
+      left = 1.8571
+      top = 8.8636
+      width = 18
+      style = 2	// DropDownList
+   endwith
+
+   this.MYSPINBOX = new SPINBOX(this)
+   with (this.MYSPINBOX)
+      onGotFocus = {;this.keyboard( "{Home}" )}
+      height = 1
+      left = 2.2857
+      top = 6.9091
+      width = 16
+      picture = "99999"
+      colorHighLight = "White/Blue"
+      rangeMax = 100
+      rangeMin = 1
+      value = 1
+   endwith
+
+   this.MYRADIOBUTTON = new RADIOBUTTON(this)
+   with (this.MYRADIOBUTTON)
+      transparent = true
+      height = 1.0909
+      left = 3.4286
+      top = 10.7727
+      width = 15.7143
+      text = "Radiobutton"
+      group = true
+      value = true
+   endwith
+
+   this.MYTITLETEXT = new MYTEXT(this)
+   with (this.MYTITLETEXT)
+      height = 1.5
+      left = 46.7143
+      top = 11.6818
+      width = 20.7143
+      colorNormal = "Blue/BtnFace"
+      alignHorizontal = 1	// Center
+      fontSize = 14
+      fontBold = true
+      text = "Title"
+      borderStyle = 1	// Raised
+   endwith
+
+   this.MYPUSHBUTTON = new PUSHBUTTON(this)
+   with (this.MYPUSHBUTTON)
+      height = 1.0909
+      left = 2.7143
+      top = 4.9091
+      width = 13
+      text = "Button"
+      mousePointer = 13	// Hand
+   endwith
+
+   this.MYGRID = new GRID(this)
+   with (this.MYGRID)
+      bgColor = "white"
+      rowSelect = true
+      colorRowSelect = "White/Blue"
+      allowEditing = false
+      allowAddRows = false
+      height = 4.1818
+      left = 31.7143
+      top = 3.3636
+      width = 28.2857
+   endwith
+
+   this.MYTABBOX = new TABBOX(this)
+   with (this.MYTABBOX)
+      onSelChange = class::MYTABBOX_ONSELCHANGE
+      onOpen = class::MYTABBOX_ONOPEN
+      id = 114
+      height = 1
+      left = 0
+      top = 15.5455
+      width = 75.5714
+      colorNormal = "Blue"
+      colorHighLight = "Blue/SILVER"
+      dataSource = 'ARRAY {"Individual Record","Find Record"}'
+   endwith
+
+   this.MYTOOLBAR = new MYCONTAINER(this)
+   with (this.MYTOOLBAR)
+      transparent = true
+      left = 1.4286
+      top = 13.5
+      width = 71
+      height = 1.4091
+      borderStyle = 4	// Single
+   endwith
+
+   this.MYTOOLBAR.PBNEW = new MYPUSHBUTTON(this.MYTOOLBAR)
+   with (this.MYTOOLBAR.PBNEW)
+      onClick = class::PBNEW_ONCLICK
+      height = 1.09
+      left = 0.5
+      top = 0.0909
+      width = 11
+      text = "&New"
+      upBitmap = "RESOURCE TS_APPEND"
+      fontSize = 8
+      speedTip = "Add a new record"
+      mousePointer = 13	// Hand
+      pageno = 0
+   endwith
+
+   this.MYTOOLBAR.PBEDIT = new MYPUSHBUTTON(this.MYTOOLBAR)
+   with (this.MYTOOLBAR.PBEDIT)
+      onClick = class::PBEDIT_ONCLICK
+      height = 1.09
+      left = 11.8
+      top = 0.0909
+      width = 11
+      text = "&Edit"
+      upBitmap = "RESOURCE TS_EDIT"
+      fontSize = 8
+      speedTip = "Edit current record"
+      mousePointer = 13	// Hand
+      pageno = 0
+   endwith
+
+   this.MYTOOLBAR.PBSAVE = new MYPUSHBUTTON(this.MYTOOLBAR)
+   with (this.MYTOOLBAR.PBSAVE)
+      onClick = class::PBSAVE_ONCLICK
+      height = 1.09
+      left = 23.1
+      top = 0.0909
+      width = 11
+      text = "&Save"
+      upBitmap = "RESOURCE TS_SAVE"
+      fontSize = 8
+      speedTip = "Save current record"
+      mousePointer = 13	// Hand
+      pageno = 0
+   endwith
+
+   this.MYTOOLBAR.PBCANCEL = new MYPUSHBUTTON(this.MYTOOLBAR)
+   with (this.MYTOOLBAR.PBCANCEL)
+      onClick = class::PBCANCEL_ONCLICK
+      height = 1.09
+      left = 34.4
+      top = 0.0909
+      width = 11
+      text = "&Cancel"
+      upBitmap = "RESOURCE TS_ABANDON"
+      fontSize = 8
+      speedTip = "Cancel changes"
+      mousePointer = 13	// Hand
+      pageno = 0
+   endwith
+
+   this.MYTOOLBAR.PBDELETE = new MYPUSHBUTTON(this.MYTOOLBAR)
+   with (this.MYTOOLBAR.PBDELETE)
+      onClick = class::PBDELETE_ONCLICK
+      height = 1.09
+      left = 45.7
+      top = 0.0909
+      width = 11
+      text = "&Delete"
+      upBitmap = "RESOURCE TS_DELETE"
+      fontSize = 8
+      speedTip = "Delete current record"
+      mousePointer = 13	// Hand
+      pageno = 0
+   endwith
+
+   this.MYTOOLBAR.PBPREV = new MYPUSHBUTTON(this.MYTOOLBAR)
+   with (this.MYTOOLBAR.PBPREV)
+      onClick = class::PBPREV_ONCLICK
+      height = 1.0909
+      left = 59.8571
+      top = 0.0909
+      width = 4
+      text = ""
+      upBitmap = "RESOURCE #104"
+      speedTip = "Previous record"
+      mousePointer = 13	// Hand
+      pageno = 0
+   endwith
+
+   this.MYTOOLBAR.PBNEXT = new MYPUSHBUTTON(this.MYTOOLBAR)
+   with (this.MYTOOLBAR.PBNEXT)
+      onClick = class::PBNEXT_ONCLICK
+      height = 1.09
+      left = 64.5714
+      top = 0.0909
+      width = 4
+      text = ""
+      upBitmap = "RESOURCE #100"
+      speedTip = "Next record"
+      mousePointer = 13	// Hand
+      pageno = 0
+   endwith
+
+   this.MYEDITOR = new EDITOR(this)
+   with (this.MYEDITOR)
+      onGotFocus = {; this.colorNormal = "White/Blue"}
+      onLostFocus = {; this.colorNormal = "WindowText/Window"}
+      height = 3.1364
+      left = 45.4286
+      top = 8
+      width = 25
+      value = ""
+   endwith
+
+   this.MYIMAGE = new IMAGE(this)
+   with (this.MYIMAGE)
+      height = 3
+      left = 27.7143
+      top = 8
+      width = 14
+      alignment = 3	// Keep Aspect Stretch
+   endwith
+
+   this.MYCONTAINER = new CONTAINER(this)
+   with (this.MYCONTAINER)
+      transparent = true
+      left = 33.2857
+      top = 0.5455
+      width = 27
+      height = 2.5
+      borderStyle = 4	// Single
+   endwith
+
+   this.MYDISABLEDENTRYFIELD = new MYENTRYFIELD(this)
+   with (this.MYDISABLEDENTRYFIELD)
+      onGotFocus = {;this.keyboard( "{Home}" )}
+      when = class::MYENTRYFIELD1_WHEN
+      height = 1
+      left = 27
+      top = 12.0455
+      width = 17
+      colorNormal = "WindowText/cyan"
+      colorHighLight = "White/Blue"
+      value = "MyDisabledEntryfield"
+      selectAll = false
+      mousePointer = 12	// No
+   endwith
+
+   this.MYTEXT = new TEXT(this)
+   with (this.MYTEXT)
+      height = 1
+      left = 2.7143
+      top = 1.9091
+      width = 16.7143
+      text = "MyText"
+      borderStyle = 10	// Etched Out
+   endwith
+
+
+   function MYENTRYFIELD1_when(bOpen)
+      
+      return false
+
+   function MYTABBOX_onOpen
+      this.curSel := 1
+      form.pageNo := 1
+
+      return
+
+   function MYTABBOX_onSelChange
+      form.pageNo := this.curSel
+      //repaint(form) // repaint this form -- API calls 
+                    // by Jim Sare -- function toward end
+                    // of this file
+      
+      return
+
+   function PBCANCEL_onClick
+      form.rowset.abandon()
+      return
+
+   function PBDELETE_onClick
+      form.rowset.delete()
+      return
+
+   function PBEDIT_onClick
+      form.rowset.beginEdit()
+      return
+
+   function PBNEW_onClick
+      form.rowset.beginAppend()
+      return
+
+   function PBNEXT_onClick
+      if ( not form.rowset.next() )
+         form.rowset.next(-1)
+         msgbox("At end of rowset", "Can't Navigate", 64)
+      endif
+      return
+
+   function PBPREV_onClick
+      if ( not form.rowset.next(-1) )
+         form.rowset.next()
+         msgbox("At beginning of rowset", "Can't Navigate",64)
+      endif
+      return
+
+   function PBSAVE_onClick
+      form.rowset.save()
+      return
+endclass

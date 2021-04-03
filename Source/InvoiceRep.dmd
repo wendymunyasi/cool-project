@@ -1,0 +1,81 @@
+/*
+    INVOICEREP.DMD
+    This datamodule is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 03/17/2001
+//
+class InvoiceRepDataModule of BASEDATAMODULE from "base.cdm"
+   with (this.DBASETUTORIAL1)
+      left = 5
+      top = 2
+      width = 115
+      height = 112
+   endwith
+
+   this.INVOICE1 = new QUERY()
+   this.INVOICE1.parent = this
+   with (this.INVOICE1)
+      onOpen = class::INVOICE1_ONOPEN
+      left = 158
+      top = 6
+      width = 150
+      height = 138
+      database = form.dbaseTutorial1
+      sql = "select * from invoice.dbf"
+      active = true
+   endwith
+
+   with (this.INVOICE1.rowset)
+      indexName = "INVOICE ID"
+   endwith
+
+   this.LINEITEM1 = new QUERY()
+   this.LINEITEM1.parent = this
+   with (this.LINEITEM1)
+      left = 532
+      top = 6
+      width = 150
+      height = 138
+      database = form.dbaseTutorial1
+      sql = "select * from lineitem.dbf"
+      active = true
+   endwith
+
+   with (this.LINEITEM1.rowset)
+      fields["Item ID"].lookupSQL = "select inventory.'item id', inventory.'description' from inventory"
+      indexName = "INVOICE ID"
+      masterRowset = form.invoice1.rowset
+      masterFields = "Invoice ID"
+   endwith
+
+   this.CUSTOMER1 = new QUERY()
+   this.CUSTOMER1.parent = this
+   with (this.CUSTOMER1)
+      left = 356
+      top = 122
+      width = 150
+      height = 138
+      database = form.dbaseTutorial1
+      sql = "select * from customer.dbf"
+      active = true
+   endwith
+
+   with (this.CUSTOMER1.rowset)
+      fields["State ID"].lookupSQL = "select * from state"
+      fields["Country ID"].lookupSQL = "select * from country"
+      masterRowset = form.invoice1.rowset
+      masterFields = "Customer ID"
+   endwith
+
+   this.rowset = this.invoice1.rowset
+
+   function invoice1_onOpen
+      if type( "_app.InvoiceID" ) # "U" and ;
+         type( "_app.InvoiceID" ) # NULL
+         this.rowset.indexName := "Invoice ID"
+         this.rowset.setRange( _app.InvoiceID )
+      endif
+   return
+endclass

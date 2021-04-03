@@ -1,0 +1,54 @@
+/*
+    INVENTORYREP.DMD
+    This datamodule is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 05/29/2001
+//
+//class InventoryRepDataModule of BASEDATAMODULE from base.cdm
+
+class InventoryRepDataModule of SUPPLIERDATAMODULE from "supplier.dmd"    
+   with (this.DBASETUTORIAL1)
+      left = 21
+      top = 16
+      width = 115
+      height = 112
+   endwith
+
+   this.SUPPLIER1 = new QUERY()
+   this.SUPPLIER1.parent = this
+   with (this.SUPPLIER1)
+      left = 204
+      top = 46
+      width = 150
+      height = 138
+      database = form.dbaseTutorial1
+      sql = 'select * from "supplier.DBF"'
+      active = true
+   endwith
+
+   with (this.SUPPLIER1.rowset)
+      indexName = "COMPANY"
+   endwith
+
+   this.INVENTORY1 = new QUERY()
+   this.INVENTORY1.parent = this
+   with (this.INVENTORY1)
+      left = 434
+      top = 53
+      width = 150
+      height = 138
+      database = form.dbaseTutorial1
+      sql = 'select * from "inventory.dbf"'
+      active = true
+   endwith
+
+   with (this.INVENTORY1.rowset)
+      indexName = "SUPPLIER ID"
+      masterRowset = form.supplier1.rowset
+      masterFields = "Supplier ID"
+   endwith
+
+   this.rowset = this.supplier1.rowset
+endclass

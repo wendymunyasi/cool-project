@@ -1,0 +1,79 @@
+/*
+    INVOICE.DMD
+    This datamodule is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 02/14/2001
+//
+class InvoiceDataModule of BASEDATAMODULE from "Base.cdm"
+   with (this)
+      left = -1
+      top = -1
+   endwith
+
+   with (this.DBASETUTORIAL1)
+      left = 21
+      top = 16
+      width = 115
+      height = 112
+   endwith
+
+   this.CUSTOMER1 = new QUERY()
+   this.CUSTOMER1.parent = this
+   with (this.CUSTOMER1)
+      left = 163
+      top = 9
+      width = 150
+      height = 141
+      database = form.dbaseTutorial1
+      sql = 'Select * from "customer.dbf"'
+      active = true
+   endwith
+
+   with (this.CUSTOMER1.rowset)
+      indexName = "NAMES"
+      autoEdit = false
+   endwith
+
+   this.INVOICE1 = new QUERY()
+   this.INVOICE1.parent = this
+   with (this.INVOICE1)
+      left = 394
+      top = 42
+      width = 150
+      height = 200
+      database = form.dbaseTutorial1
+      sql = 'Select * from "invoice.dbf"'
+      active = true
+   endwith
+
+   with (this.INVOICE1.rowset)
+      autoEdit = false
+      indexName = "CUSTOMER ID"
+      masterRowset = form.customer1.rowset
+      masterFields = "Customer ID"
+   endwith
+
+   this.LINEITEM1 = new QUERY()
+   this.LINEITEM1.parent = this
+   with (this.LINEITEM1)
+      left = 622
+      top = 95
+      width = 150
+      height = 141
+      database = form.dbaseTutorial1
+      sql = 'Select * from "lineitem.dbf"'
+      active = true
+   endwith
+
+   with (this.LINEITEM1.rowset)
+      fields["Item ID"].lookupSQL = "select inventory.'item id', inventory.'description' from inventory"
+      autoEdit = false
+      indexName = "INVOICE ID"
+      masterRowset = form.invoice1.rowset
+      masterFields = "Invoice ID"
+   endwith
+
+   this.rowset = this.customer1.rowset
+endclass

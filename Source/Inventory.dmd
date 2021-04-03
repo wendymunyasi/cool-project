@@ -1,0 +1,35 @@
+/*
+    INVENTORY.DMD
+    This datamodule is part of the dBBASE SE tutorial project. 
+*/
+** END HEADER -- do not remove this line
+//
+// Generated on 06/27/2001
+//
+class InventoryDataModule of BASEDATAMODULE from base.cdm
+   with (this.DBASETUTORIAL1)
+      left = 21
+      top = 16
+      width = 115
+      height = 112
+   endwith
+
+   this.INVENTORY1 = new QUERY()
+   this.INVENTORY1.parent = this
+   with (this.INVENTORY1)
+      left = 166
+      top = 36
+      width = 150
+      height = 138
+      database = form.dbaseTutorial1
+      sql = 'select * from "inventory.dbf"'
+      active = true
+   endwith
+
+   with (this.INVENTORY1.rowset)
+      fields["Supplier ID"].lookupSQL = "select supplier.'supplier id', company from supplier order by company"
+      indexName = "DESCRIPTION"
+   endwith
+
+   this.rowset = this.inventory1.rowset
+endclass

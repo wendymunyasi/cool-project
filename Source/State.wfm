@@ -1,0 +1,161 @@
+/*
+
+    STATE.WFM
+     This label file is part of the dBBASE SE tutorial project.  
+
+*/
+
+** END HEADER -- do not remove this line
+//
+// Generated on 12/15/1998
+//
+parameter bModal
+local f
+f = new StateForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class StateForm of DATAFORMCFORM from "Dataform.cfm"
+   set procedure to "MYCONTROLS.cc" additive
+   set procedure to :FormControls:SEEKER.CC additive
+   with (this)
+      height = 10
+      width = 71
+      text = "States"
+   endwith
+
+
+   this.TUTORIAL1 = new DATABASE()
+   this.TUTORIAL1.parent = this
+   with (this.TUTORIAL1)
+      left = 2.1429
+      top = 3.2273
+      databaseName = "dBASETUTORIAL"
+      active = true
+   endwith
+
+
+   this.STATE1 = new QUERY()
+   this.STATE1.parent = this
+   with (this.STATE1)
+      left = 3.5714
+      top = 3.6818
+      database = form.tutorial1
+      sql = "select * from state.dbf"
+      active = true
+   endwith
+
+
+   with (this.STATE1.rowset)
+
+      indexName = "STATE"
+   endwith
+
+
+   with (this.MYTITLETEXT1)
+      height = 1.5
+      left = 0
+      top = 0
+      width = 71
+      text = "States"
+   endwith
+
+
+
+
+   with (this.TEXT2)
+      left = 1.5714
+      top = 0.3182
+   endwith
+
+
+   with (this.SEEKER1)
+      height = 1
+      left = 7.5714
+      top = 0.2727
+      width = 54.8571
+      value = ""
+   endwith
+
+
+   with (this.GRID1)
+      dataLink = form.state1.rowset
+      columns["Column1"] = new GRIDCOLUMN(form.GRID1)
+      columns["Column1"].dataLink = form.state1.rowset.fields["State ID"]
+      columns["Column1"].editorType = 1	// EntryField
+      columns["Column1"].width = 11.4286
+      columns["Column2"] = new GRIDCOLUMN(form.GRID1)
+      columns["Column2"].dataLink = form.state1.rowset.fields["State"]
+      columns["Column2"].editorType = 1	// EntryField
+      columns["Column2"].width = 45.7143
+
+
+
+      with (columns["Column1"].headingControl)
+         value = "State ID                 "
+      endwith
+
+
+
+
+      with (columns["Column2"].headingControl)
+         value = "State                    "
+      endwith
+
+
+      height = 7.1818
+      left = 1
+      top = 1.6364
+      width = 62.4286
+   endwith
+
+   this.MYTEXTLABEL1 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL1)
+      height = 0.9545
+      left = 15
+      top = 3.6818
+      width = 12
+      text = "State ID:"
+   endwith
+
+   with (this.MYTOOLBAR1)
+      left = 0
+   endwith
+
+   this.MYTEXTLABEL2 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL2)
+      height = 0.9545
+      left = 15
+      top = 4.9545
+      width = 12
+      text = "State:"
+   endwith
+
+
+   this.MYENTRYFIELD1 = new MYENTRYFIELD(this)
+   with (this.MYENTRYFIELD1)
+      dataLink = form.state1.rowset.fields["State ID"]
+      height = 1
+      left = 28.5714
+      top = 3.6818
+      width = 4.1429
+      picture = "!!"
+   endwith
+
+
+   this.MYENTRYFIELD2 = new MYENTRYFIELD(this)
+   with (this.MYENTRYFIELD2)
+      dataLink = form.state1.rowset.fields["State"]
+      height = 1
+      left = 28.4286
+      top = 4.8636
+      width = 25.1429
+   endwith
+
+   this.rowset = form.state1.rowset
+
+endclass

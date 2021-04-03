@@ -1,0 +1,215 @@
+/*
+    INVENTORY.REP
+    This report is part of the dBBASE SE tutorial project. 
+
+*/
+
+** END HEADER -- do not remove this line
+//
+// Generated on 01/05/1999
+//
+local r
+r = new InventoryReport()
+r.render()
+
+class InventoryReport of BASECREPORT from "base.crp"
+   set procedure to InventoryRep.dmd additive
+   set procedure to ":FormControls:SEEKER.CC" additive
+   set procedure to CustomReportControls.cc additive
+   with (this)
+      title = "Inventory by Supplier"
+   endwith
+
+
+   this.InventoryRepDataModule1 = new InventoryRepDataModule()
+   this.InventoryRepDataModule1.parent = this
+   with (this.InventoryRepDataModule1)
+      left =  1.1354
+      top =  0.5208
+   endwith
+
+
+   this.STREAMSOURCE1.GROUP1 = new GROUP(this.STREAMSOURCE1)
+   with (this.STREAMSOURCE1.GROUP1)
+      groupBy = "Company"
+   endwith
+
+
+
+
+
+   this.STREAMSOURCE1.GROUP1.headerBand.TEXT1 = new TEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.TEXT1)
+      height = 0.2083
+      left = 0
+      top = 0
+      width = 0.8125
+      prefixEnable = false
+      fontSize = 12
+      fontBold = true
+      text = "Supplier:"
+   endwith
+
+
+   this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.headerBand)
+   with (this.STREAMSOURCE1.GROUP1.headerBand.KMFIELDTEXT1)
+      left = 0.9896
+      top = 0.0208
+      width = 2
+      fontSize = 12
+      fontBold = true
+      text = {||form.streamsource1.rowset.fields["Company"].value}
+   endwith
+
+
+
+
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT1 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDHEADINGTEXT1)
+      height = 0.1979
+      left = 0.8125
+      top = 0
+      width = 2.4375
+      fontBold = true
+      text = "Total mugs on hand for this supplier: "
+   endwith
+
+
+   this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDTEXT1 = new KMFIELDTEXT(this.STREAMSOURCE1.GROUP1.footerBand)
+   with (this.STREAMSOURCE1.GROUP1.footerBand.KMFIELDTEXT1)
+      left = 4.0521
+      top = 0.016
+      width = 0.4271
+      alignHorizontal = 2	// Right
+      picture = "999"
+      fontBold = true
+      text = {||this.parent.parent.agSum({||this.parent.rowset.parent.parent.inventory1.rowset.fields[ "qty"].value})}
+   endwith
+
+
+
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT1 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT1)
+      canRender = {||this.parent.firstOnFrame}
+      height = 0.1771
+      left = 0.0729
+      top = 0.0417
+      width = 0.75
+      variableHeight = false
+      suppressIfBlank = true
+      fontBold = true
+      text = "Item ID "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT2 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT2)
+      canRender = {||this.parent.firstOnFrame}
+      height = 0.1771
+      left = 1.1875
+      top = 0.0417
+      width = 0.75
+      variableHeight = false
+      suppressIfBlank = true
+      fontBold = true
+      text = "Description "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT3 = new KMFIELDHEADINGTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.KMFIELDHEADINGTEXT3)
+      canRender = {||this.parent.firstOnFrame}
+      height = 0.1771
+      left = 3.9271
+      top = 0.0417
+      width = 0.6354
+      variableHeight = false
+      suppressIfBlank = true
+      fontBold = true
+      text = "Quantity "
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.TEXTITEM_ID1 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.TEXTITEM_ID1)
+      height = 0.2083
+      left = 0.2292
+      top = 0.2188
+      width = 0.5521
+      variableHeight = true
+      prefixEnable = false
+      alignHorizontal = 2	// Right
+      text = {||this.form.InventoryRepDataModule1.inventory1.rowset.fields["Item ID"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.TEXTDESCRIPTION1 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.TEXTDESCRIPTION1)
+      height = 0.2083
+      left = 1.1667
+      top = 0.2188
+      width = 2.625
+      variableHeight = true
+      prefixEnable = false
+      text = {||this.form.InventoryRepDataModule1.inventory1.rowset.fields["Description"].value}
+   endwith
+
+
+   this.STREAMSOURCE1.detailBand.TEXTQTY1 = new KMFIELDTEXT(this.STREAMSOURCE1.detailBand)
+   with (this.STREAMSOURCE1.detailBand.TEXTQTY1)
+      height = 0.2083
+      left = 3.9063
+      top = 0.2188
+      width = 0.5729
+      variableHeight = true
+      prefixEnable = false
+      alignHorizontal = 2	// Right
+      text = {||this.form.InventoryRepDataModule1.inventory1.rowset.fields["Qty"].value}
+   endwith
+
+
+
+
+
+   with (this.PAGETEMPLATE1.STREAMFRAME1)
+      height = 8.6875
+      left = 0
+      top = 0.9688
+      width = 7.5
+      form.STREAMFRAME1 = form.pagetemplate1.streamframe1
+   endwith
+
+
+   with (this.PAGETEMPLATE1.KMTITLETEXT11)
+      text = "Inventory by Supplier"
+      form.KMTITLETEXT11 = form.pagetemplate1.kmtitletext11
+   endwith
+
+
+
+      form.KMDATETEXT1 = form.pagetemplate1.kmdatetext1
+
+
+      form.PAGENUMBER1 = form.pagetemplate1.pagenumber1
+
+   with (this.printer)
+      duplex = 1	// None
+      orientation = 1	// Portrait
+      paperSource = 15
+      paperSize = 1
+      resolution = 4	// High
+      color = 2	// Color
+      trueTypeFonts = 2	// Download
+   endwith
+
+
+
+
+   this.firstPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.nextPageTemplate = this.form.pagetemplate1
+   this.form.pagetemplate1.streamframe1.streamSource = this.form.STREAMSOURCE1
+   this.form.STREAMSOURCE1.rowset = this.form.InventoryRepDataModule1.supplier1.rowset
+endclass
