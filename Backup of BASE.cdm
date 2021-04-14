@@ -1,0 +1,13 @@
+** END HEADER -- do not remove this line
+class BASECDATAMODULE of DATAMODULE custom
+   this.DBASETUTOTIAL_CC1 = new DATABASE(this)
+   with (this.DBASETUTOTIAL_CC1)
+      left = 19.0
+      top = 135.0
+      databaseName = "dBASETutotial.cc"
+      active = true
+   endwith
+
+
+endclass
+

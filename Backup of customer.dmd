@@ -1,0 +1,72 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 14/04/2021
+//
+class customerDATAMODULE of BASECDATAMODULE from "BASE.cdm"
+   with (this.DBASETUTOTIAL_CC1)
+      left = 27.0
+      top = 159.0
+      width = 115.0
+      height = 112.0
+   endwith
+
+   this.CUSTOMER1 = new QUERY(this)
+   with (this.CUSTOMER1)
+      onOpen = class::CUSTOMER1_ONOPEN
+      left = 240.0
+      top = 73.0
+      width = 416.0
+      height = 196.0
+      database = form.dbasetutotial_cc1
+      sql = 'Select * from "customer"'
+      active = true
+   endwith
+
+   with (this.CUSTOMER1.rowset)
+      canSave = class::ROWSET_CANSAVE
+      with (fields["State ID"])
+         lookupSQL = "select * from state order by state"
+      endwith
+      with (fields["Country ID"])
+         lookupSQL = "select * from country order by country"
+      endwith
+      with (fields["FullName"])
+         beforeGetValue = class::FULLNAME_BEFOREGETVALUE
+      endwith
+      indexName = "NAMES"
+   endwith
+
+   this.rowset = this.customer1.rowset
+
+   function CUSTOMER1_onOpen()
+      class::calcfield("FullName",30)
+      return
+
+   function FullName_beforeGetValue
+      local a
+			 a = trim(this.parent["first name"].value) + " " ;
+			 + this.parent["last name"].value
+      return a
+
+   function rowset_canSave
+		local cErrors, bRetVal
+		cErrors = ""       //String for errors
+		if empty (this.fields["Last name"].value)
+			cErrors += "- LAST NAME cannot be blank" + chr(13)
+		endif
+		if empty (this.fields["postal"].value)
+			cErrors += "- ZIP CODE cannot be blank" + chr(13)
+		endif
+		if "" # cerrors
+			msgbox("Can't save current entry address because:" + chr(13) + ;
+						cErrors, "Bad entry", 48)
+			bRetVal = false
+		else
+			bRetval = true
+		endif
+		return bRetval
+			
+      return true
+
+endclass
+
