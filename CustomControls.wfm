@@ -1,6 +1,6 @@
 ** END HEADER -- do not remove this line
 //
-// Generated on 15/04/2021
+// Generated on 16/04/2021
 //
 parameter bModal
 local f
@@ -16,8 +16,8 @@ class CustomControlsForm of FORM
    set procedure to MyControls.cc additive
    with (this)
       height = 24.0909
-      left = 16.8571
-      top = 5.2727
+      left = 14.0
+      top = 4.6818
       width = 103.0
       text = ""
    endwith
@@ -379,7 +379,14 @@ class CustomControlsForm of FORM
 		endif
       return
 
-   function PBPREV_onClick()
+   // function PBPREV_onClick()
+   //   if(not form.rowset.next(-1))
+	//		form.rowset.next()
+	//		msgbox("At the begininng of rowset", "Can't Navigate", 64)
+	//		endif
+   //   return
+
+   function PBPREV_onClick1()
       if(not form.rowset.next(-1))
 			form.rowset.next()
 			msgbox("At the begininng of rowset", "Can't Navigate", 64)
