@@ -1,6 +1,6 @@
 ** END HEADER -- do not remove this line
 //
-// Generated on 16/04/2021
+// Generated on 18/04/2021
 //
 parameter bModal
 local f
@@ -26,7 +26,7 @@ class CustomControlsForm of FORM
    with (this.MYENTRYFIELD)
       onGotFocus = {;this.keyboard("{Home}")}
       height = 1.0
-      left = 3.0
+      left = 4.0
       top = 1.0
       width = 13.5714
       colorHighLight = "White/Blue"
@@ -39,7 +39,7 @@ class CustomControlsForm of FORM
       height = 1.0
       left = 4.0
       top = 3.5
-      width = 12.0
+      width = 14.0
       text = "Text1"
       borderStyle = 10	// Etched Out
    endwith
@@ -61,7 +61,7 @@ class CustomControlsForm of FORM
       height = 1.0909
       left = 4.0
       top = 6.5
-      width = 15.2857
+      width = 14.0
       text = "Button"
       mousePointer = 13	// Hand
    endwith
@@ -70,9 +70,9 @@ class CustomControlsForm of FORM
    with (this.MYSPINBOX)
       onGotFocus = {;this.keyboard("{Home}")}
       height = 1.0
-      left = 5.0
+      left = 4.0
       top = 9.0
-      width = 15.0
+      width = 13.0
       picture = '"99999"'
       colorHighLight = "White/Blue"
       rangeMax = 100
@@ -87,7 +87,7 @@ class CustomControlsForm of FORM
       onLostFocus = class::MYCOMBOBOX_ONLOSTFOCUS
       onChange = class::MYCOMBOBOX_ONCHANGE
       height = 1.0
-      left = 5.0
+      left = 4.0
       top = 11.5
       width = 12.0
       style = 2	// DropDownList
@@ -99,7 +99,7 @@ class CustomControlsForm of FORM
       height = 1.0909
       left = 5.0
       top = 14.0
-      width = 15.7143
+      width = 14.0
       text = "Radiobutton"
    endwith
 
@@ -217,7 +217,7 @@ class CustomControlsForm of FORM
       allowEditing = false
       allowAddRows = false
       height = 4.0
-      left = 60.0
+      left = 62.0
       top = 2.0
       width = 36.0
    endwith
@@ -250,7 +250,7 @@ class CustomControlsForm of FORM
       onLostFocus = class::MYEDITOR_ONLOSTFOCUS
       key = class::MYEDITOR_KEY
       height = 4.0
-      left = 76.0
+      left = 78.0
       top = 11.0
       width = 20.0
       value = ""
@@ -263,7 +263,7 @@ class CustomControlsForm of FORM
       when = class::MYDISABLEDENTRYFIELD_WHEN
       enabled = false
       height = 1.0
-      left = 49.0
+      left = 48.0
       top = 16.0
       width = 21.5714
       colorNormal = "WindowText/Aqua"
@@ -273,7 +273,7 @@ class CustomControlsForm of FORM
    this.MYTITLETEXT = new MYTEXT(this)
    with (this.MYTITLETEXT)
       height = 1.5
-      left = 76.0
+      left = 77.0
       top = 16.0
       width = 21.0
       colorNormal = "Blue/BtnFace"
