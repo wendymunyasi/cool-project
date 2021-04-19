@@ -1,11 +1,11 @@
 function Repaint
-	parameter oForm
-	if type("oForm") == "U" or empty(oForm)
-		oForm = form
-	endif
-	if type("UpdateWindow") # "FP"
-		extern CLOGICAL UpdateWindow(CHANDLE) USER32
-	endif
+	  parameter oForm
+	  if type("oForm") == "U" or empty(oForm)
+			 oForm = form
+	  endif
+	  if type("UpdateWindow") # "FP"
+			 extern CLOGICAL UpdateWindow(CHANDLE) USER32
+	  endif
 RETURN UpdateWindow(oForm.hWnd)
 
 ** END HEADER -- do not remove this line
