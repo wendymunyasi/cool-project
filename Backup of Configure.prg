@@ -11,7 +11,7 @@ _app.statusBar := true
 set design on
 
 // Setup custom controls for use with forms
-set procedure to :mycontrols.cc additive
+set procedure to mycontrols.ccc additive
 set procedure to :FormControls:seeker.cc additive
 
 // Setup custom controls for use the reports
