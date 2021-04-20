@@ -363,3 +363,27 @@ class MYTOOLBAR(parentObj, name) of CONTAINER(parentObj, name) custom
       form.rowset.save()
       return
 endclass
+
+class MYTABBOX(parentObj, name) of TABBOX(parentObj, name) custom
+   with (this)
+      onSelChange = class::MYTABBOX_ONSELCHANGE
+      onOpen = class::MYTABBOX_ONOPEN
+      id = 110
+      height = 1.0
+      left = 0.0
+      top = 23.0
+      width = 102.7143
+      metric = 0	// Chars
+      colorNormal = "Blue"
+      colorHighLight = "Blue/Silver"
+      dataSource = 'ARRAY {"Individual Record", "Find Record"}'
+   endwith
+
+   function MYTABBOX_onSelChange()
+      form.pageno := this.cursel
+      return
+   function MYTABBOX_onOpen()
+      this.cursel := 1
+		this.pageno := 1
+      return
+endclass
