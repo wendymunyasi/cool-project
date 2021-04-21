@@ -1,6 +1,6 @@
 ** END HEADER -- do not remove this line
 //
-// Generated on 20/04/2021
+// Generated on 21/04/2021
 //
 parameter bModal
 local f
@@ -216,8 +216,8 @@ class CustomControlsForm of FORM
       allowEditing = false
       allowAddRows = false
       height = 4.0
-      left = 62.0
-      top = 2.0
+      left = 52.0
+      top = 5.5
       width = 36.0
    endwith
 
@@ -280,6 +280,16 @@ class CustomControlsForm of FORM
       fontSize = 14.0
       text = "Title"
       borderStyle = 1	// Raised
+   endwith
+
+   this.MYCONTAINER = new CONTAINER(this)
+   with (this.MYCONTAINER)
+      transparent = true
+      left = 49.0
+      top = 1.0
+      width = 44.0
+      height = 3.5
+      borderStyle = 4	// Single
    endwith
 
 

@@ -387,3 +387,16 @@ class MYTABBOX(parentObj, name) of TABBOX(parentObj, name) custom
 		this.pageno := 1
       return
 endclass
+
+class MYCONTAINER(parentObj, name) of CONTAINER(parentObj, name) custom
+   with (this)
+      transparent = true
+      left = 49.0
+      top = 1.0
+      width = 44.0
+      height = 3.5
+      metric = 0	// Chars
+      borderStyle = 4	// Single
+   endwith
+
+endclass
