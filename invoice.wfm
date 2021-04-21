@@ -58,33 +58,33 @@ class invoiceForm of BASECFORM from "Base.cfm"
    this.MYGRID1 = new MYGRID(this)
    with (this.MYGRID1)
       dataLink = form.invoicedatamodule1.customer1.rowset
-      columns["Column1"] = new GRIDCOLUMN(form.MYGRID1)
-      with (columns["Column1"])
+      columns["COLUMN1"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["COLUMN1"])
          dataLink = form.invoicedatamodule1.customer1.rowset.fields["last name"]
          editorType = 1	// EntryField
          width = 28.5714
       endwith
-      columns["Column2"] = new GRIDCOLUMN(form.MYGRID1)
-      with (columns["Column2"])
+      columns["COLUMN2"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["COLUMN2"])
          dataLink = form.invoicedatamodule1.customer1.rowset.fields["first name"]
          editorType = 1	// EntryField
          width = 28.5714
       endwith
-      columns["Column3"] = new GRIDCOLUMN(form.MYGRID1)
-      with (columns["Column3"])
+      columns["COLUMN3"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["COLUMN3"])
          dataLink = form.invoicedatamodule1.customer1.rowset.fields["city"]
          editorType = 1	// EntryField
          width = 28.7143
       endwith
-      with (columns["Column1"].headingControl)
+      with (columns["COLUMN1"].headingControl)
          value = "Last Name"
       endwith
 
-      with (columns["Column2"].headingControl)
+      with (columns["COLUMN2"].headingControl)
          value = "First Name"
       endwith
 
-      with (columns["Column3"].headingControl)
+      with (columns["COLUMN3"].headingControl)
          value = "City"
       endwith
 
@@ -94,7 +94,203 @@ class invoiceForm of BASECFORM from "Base.cfm"
       width = 80.0
    endwith
 
+   this.INVOICECONTAINER = new MYCONTAINER(this)
+   with (this.INVOICECONTAINER)
+      left = 14.0
+      top = 17.0
+      width = 65.0
+      height = 12.5
+   endwith
+
+   this.INVOICECONTAINER.MYTEXTLABEL1 = new MYTEXTLABEL(this.INVOICECONTAINER)
+   with (this.INVOICECONTAINER.MYTEXTLABEL1)
+      height = 1.0
+      left = 6.8571
+      top = 1.8
+      width = 12.0
+      text = "Invoices:"
+      pageno = 0
+   endwith
+
+   this.INVOICECONTAINER.INVOICEBUTTONCONTAINER = new MYCONTAINER(this.INVOICECONTAINER)
+   with (this.INVOICECONTAINER.INVOICEBUTTONCONTAINER)
+      left = 18.8571
+      top = 0.9545
+      width = 37.0
+      height = 2.5
+      borderStyle = 3	// None
+      pageno = 0
+   endwith
+
+   this.INVOICECONTAINER.INVOICEBUTTONCONTAINER.ADDINVOICE = new MYPUSHBUTTON(this.INVOICECONTAINER.INVOICEBUTTONCONTAINER)
+   with (this.INVOICECONTAINER.INVOICEBUTTONCONTAINER.ADDINVOICE)
+      onClick = class::ADDINVOICE_ONCLICK
+      height = 1.5
+      left = 1.8571
+      top = 0.4545
+      width = 5.0
+      text = ""
+      upBitmap = "RESOURCE:2 PS_APPEND"
+      speedTip = '"Add Invoice"'
+      pageno = 0
+   endwith
+
+   this.INVOICECONTAINER.INVOICEBUTTONCONTAINER.EDITINVOICE = new MYPUSHBUTTON(this.INVOICECONTAINER.INVOICEBUTTONCONTAINER)
+   with (this.INVOICECONTAINER.INVOICEBUTTONCONTAINER.EDITINVOICE)
+      onClick = class::EDITINVOICE_ONCLICK
+      height = 1.5
+      left = 8.0
+      top = 0.5
+      width = 5.0
+      text = ""
+      upBitmap = "RESOURCE:2 PS_EDIT"
+      speedTip = '"Edit This Invoice"'
+      pageno = 0
+   endwith
+
+   this.INVOICECONTAINER.INVOICEBUTTONCONTAINER.DELETEINVOICE = new MYPUSHBUTTON(this.INVOICECONTAINER.INVOICEBUTTONCONTAINER)
+   with (this.INVOICECONTAINER.INVOICEBUTTONCONTAINER.DELETEINVOICE)
+      onClick = class::DELETEINVOICE_ONCLICK
+      height = 1.5
+      left = 14.0
+      top = 0.5
+      width = 5.0
+      text = ""
+      upBitmap = "RESOURCE:2 PS_DELETE"
+      speedTip = '"Delete This Invoice"'
+      pageno = 0
+   endwith
+
+   this.INVOICECONTAINER.INVOICEBUTTONCONTAINER.PRINTINVOICE = new MYPUSHBUTTON(this.INVOICECONTAINER.INVOICEBUTTONCONTAINER)
+   with (this.INVOICECONTAINER.INVOICEBUTTONCONTAINER.PRINTINVOICE)
+      onClick = class::PRINTINVOICE_ONCLICK
+      height = 1.5
+      left = 20.0
+      top = 0.5
+      width = 5.0
+      text = ""
+      upBitmap = "RESOURCE:2 PS_PRINT"
+      speedTip = '"Print this Invoice"'
+      pageno = 0
+   endwith
+
+   this.INVOICECONTAINER.MYGRID1 = new MYGRID(this.INVOICECONTAINER)
+   with (this.INVOICECONTAINER.MYGRID1)
+      dataLink = form.invoicedatamodule1.invoice1.rowset
+      columns["COLUMN1"] = new GRIDCOLUMN(form.INVOICECONTAINER.MYGRID1)
+      with (columns["COLUMN1"])
+         dataLink = form.invoicedatamodule1.invoice1.rowset.fields["order date"]
+         editorType = 3	// SpinBox
+         width = 18.2857
+      endwith
+      columns["COLUMN2"] = new GRIDCOLUMN(form.INVOICECONTAINER.MYGRID1)
+      with (columns["COLUMN2"])
+         dataLink = form.invoicedatamodule1.lineitem1.rowset.fields["invoice id"]
+         editorType = 3	// SpinBox
+         width = 18.5714
+      endwith
+      with (columns["COLUMN1"].editorControl)
+         rangeMax = {20/03/1998}
+         rangeMin = {10/12/1997}
+      endwith
+
+      with (columns["COLUMN1"].headingControl)
+         value = "Order Date"
+      endwith
+
+      with (columns["COLUMN2"].editorControl)
+         rangeMax = 100
+         rangeMin = 1
+      endwith
+
+      with (columns["COLUMN2"].headingControl)
+         value = "Invoice ID"
+      endwith
+
+      pageno = 0
+      height = 7.5
+      left = 9.8571
+      top = 3.4545
+      width = 40.0
+   endwith
+
    this.rowset = this.invoicedatamodule1.customer1.rowset
+
+   function ADDINVOICE_onClick()
+      local fInvoice
+		set procedure to invoiceEdit.wfm additive
+		fInvoice = new InvoiceEditForm()
+		// add a customer property (note that the form.rowset is pointing
+		// to the customer rowset)
+		fInvoice.customerID = form.rowset.fields["customer id"].value
+		// let the invoice form know we're in append mode
+		fInvoice.Mode = "Append"
+		// open the form:
+		fInvoice.readModal()
+		// close the procedure file:
+		close procedure invoiceEdit.wfm
+		if form.invoicedatamodule1.lineitem1.rowset.endOfSet
+			// go to last row, which is the one we just added
+			form.invoicedatamodule1.invoice1.rowset.last()
+			// because an invoice is useless without a line item
+			class::AddLineItem_onClick()
+		endif
+		// refresh the controls on screen ...
+		form.invoicedatamodule1.invoice1.rowset.refreshControls()
+      return
+
+   function DELETEINVOICE_onClick()
+      // shorten the rowset reference:
+		r = form.invoicedatamodule1.INVOICE1.rowset
+		// check for endOfSet
+		if r.endOfSet
+			msgbox("Cannot delete -- there are no rows to delete!",;
+			"Can't do that!", 16)
+		else
+			// otherwise check to see if they really want to delete this row
+			if (msgbox("You are about to delete the current row.";
+							+ chr(13);
+							+ "Click Yes to delete the current row.", ;
+								"Alert", 4) == 6)
+				// delete it
+				r.delete()
+				
+				// move to previous row, unless we're at the first one, and then
+				// step off the endOfSet marker ...
+				if (r.next(-1))
+					r.next()
+				endif
+			endif
+		endif
+      return
+
+   function EDITINVOICE_onClick()
+		// check to make sure we have a row to edit:
+		if not form.invoicedatamodule1.invoice1.rowset.endOfSet
+			local fInvoice
+			set procedure to invoiceEdit.wfm additive
+			fInvoice = new InvoiceEditForm()
+			// add a customer property (note that the form.rowset is pointing
+			// to the customer rowset)
+			fInvoice.customerID = form.rowset.fields["customer id"].value
+			fInvoice.InvoiceID = ;
+				form.invoicedatamodule1.INVOICE1.rowset.fields["Invoice ID"].value
+			// let the invoice form know we're in edit mode
+			fInvoice.Mode = "Edit"
+			// open the form:
+			fInvoice.readModal()
+			// close the procedure file:
+			close procedure invoiceEdit.wfm
+			// refresh the controls on screen ...
+			form.invoicedatamodule1.invoice1.rowset.refreshControls()
+		else
+			msgbox("There is nothing to edit oo!", "Can't do that!", 16)
+		endif
+      return
+
+   function PRINTINVOICE_onClick()
+      // code will go here.
+      return
 
    function form_onOpen()
       // call the onOpen method of the dataform custom form...
