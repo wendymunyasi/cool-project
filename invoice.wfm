@@ -1,0 +1,106 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 21/04/2021
+//
+parameter bModal
+local f
+f = new invoiceForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class invoiceForm of BASECFORM from "Base.cfm"
+   set procedure to :FormControls:seeker.cc additive
+   set procedure to MyControls.cc additive
+   set procedure to invoice.dmd additive
+   with (this)
+      onOpen = class::FORM_ONOPEN
+      height = 31.3636
+      left = 13.0
+      top = 1.7727
+      width = 97.1429
+      text = "Invoices"
+   endwith
+
+   this.INVOICEDATAMODULE1 = new INVOICEDATAMODULE()
+   this.INVOICEDATAMODULE1.parent = this
+   with (this.INVOICEDATAMODULE1)
+      left = 76.0
+      top = 3.0
+      width = 14.0
+      height = 1.0
+   endwith
+
+   with (this.MYTITLETEXT1)
+      text = "Invoices"
+   endwith
+
+   this.MYTEXTLABEL1 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL1)
+      height = 1.0
+      left = 14.0
+      top = 2.0
+      width = 12.0
+      text = "Customers:"
+   endwith
+
+   this.SEEKER1 = new SEEKER(this)
+   with (this.SEEKER1)
+      height = 1.0
+      left = 30.0
+      top = 2.0
+      width = 43.0
+   endwith
+
+   this.MYGRID1 = new MYGRID(this)
+   with (this.MYGRID1)
+      dataLink = form.invoicedatamodule1.customer1.rowset
+      columns["Column1"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["Column1"])
+         dataLink = form.invoicedatamodule1.customer1.rowset.fields["last name"]
+         editorType = 1	// EntryField
+         width = 28.5714
+      endwith
+      columns["Column2"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["Column2"])
+         dataLink = form.invoicedatamodule1.customer1.rowset.fields["first name"]
+         editorType = 1	// EntryField
+         width = 28.5714
+      endwith
+      columns["Column3"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["Column3"])
+         dataLink = form.invoicedatamodule1.customer1.rowset.fields["city"]
+         editorType = 1	// EntryField
+         width = 28.7143
+      endwith
+      with (columns["Column1"].headingControl)
+         value = "Last Name"
+      endwith
+
+      with (columns["Column2"].headingControl)
+         value = "First Name"
+      endwith
+
+      with (columns["Column3"].headingControl)
+         value = "City"
+      endwith
+
+      height = 9.5
+      left = 8.0
+      top = 5.0
+      width = 80.0
+   endwith
+
+   this.rowset = this.invoicedatamodule1.customer1.rowset
+
+   function form_onOpen()
+      // call the onOpen method of the dataform custom form...
+		set procedure to dataform.cfm additive
+		dataformcForm::form_onOpen()
+      return
+
+endclass
+

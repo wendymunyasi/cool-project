@@ -1,6 +1,6 @@
 ** END HEADER -- do not remove this line
 //
-// Generated on 21/04/2021
+// Generated on 20/04/2021
 //
 parameter bModal
 local f
@@ -12,15 +12,15 @@ else
    f.open()
 endif
 
-class CustomerForm of DATAFORMCFORM from "DataForm.cfm"
+class CustomerForm of DataFormCForm from "DataForm.cfm"
    set procedure to customer.dmd additive
    set procedure to :FormControls:seeker.cc additive
    set procedure to MyControls.cc additive
    with (this)
       height = 25.2273
-      left = 5.0
-      top = 7.2727
-      width = 97.4286
+      left = 17.0
+      top = 4.0909
+      width = 98.5714
       text = "CustomerInformation"
    endwith
 
@@ -30,7 +30,7 @@ class CustomerForm of DATAFORMCFORM from "DataForm.cfm"
       left = 70.0
       top = 5.0
       width = 14.0
-      height = 1.0
+      height = 2.0
    endwith
 
    with (this.MYTITLETEXT1)
@@ -46,33 +46,33 @@ class CustomerForm of DATAFORMCFORM from "DataForm.cfm"
 
    with (this.MYGRID1)
       dataLink = form.customerdatamodule1.customer1.rowset
-      columns["COLUMN1"] = new GRIDCOLUMN(form.MYGRID1)
-      with (columns["COLUMN1"])
+      columns["Column1"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["Column1"])
          dataLink = form.customerdatamodule1.customer1.rowset.fields["last name"]
          editorType = 1	// EntryField
          width = 26.1429
       endwith
-      columns["COLUMN2"] = new GRIDCOLUMN(form.MYGRID1)
-      with (columns["COLUMN2"])
+      columns["Column2"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["Column2"])
          dataLink = form.customerdatamodule1.customer1.rowset.fields["first name"]
          editorType = 1	// EntryField
          width = 28.5714
       endwith
-      columns["COLUMN3"] = new GRIDCOLUMN(form.MYGRID1)
-      with (columns["COLUMN3"])
+      columns["Column3"] = new GRIDCOLUMN(form.MYGRID1)
+      with (columns["Column3"])
          dataLink = form.customerdatamodule1.customer1.rowset.fields["city"]
          editorType = 1	// EntryField
          width = 42.8571
       endwith
-      with (columns["COLUMN1"].headingControl)
+      with (columns["Column1"].headingControl)
          value = "Last Name"
       endwith
 
-      with (columns["COLUMN2"].headingControl)
+      with (columns["Column2"].headingControl)
          value = "First Name"
       endwith
 
-      with (columns["COLUMN3"].headingControl)
+      with (columns["Column3"].headingControl)
          value = "City"
       endwith
 
