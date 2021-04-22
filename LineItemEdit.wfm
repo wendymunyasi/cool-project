@@ -1,0 +1,142 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 22/04/2021
+//
+parameter bModal
+local f
+f = new LineItemEditForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class LineItemEditForm of DIALOGCFORM from "dialogForm.cfm"
+   set procedure to MyControls.cc additive
+   with (this)
+      onOpen = class::FORM_ONOPEN
+      height = 12.5909
+      width = 49.0
+      text = "LineItems"
+   endwith
+
+   this.LINEITEM1 = new QUERY(this)
+   with (this.LINEITEM1)
+      left = 37.0
+      top = 4.0
+      width = 6.0
+      height = 1.0
+      sql = 'select * from "C:\dBASETutorial\Tables\lineItem.DBF"'
+      active = true
+   endwith
+
+   with (this.LINEITEM1.rowset)
+      canNavigate = {; return false}
+      with (fields["Item ID"])
+         lookupSQL = "select inventory.'item id', inventory.'description' from inventory"
+      endwith
+   endwith
+
+   with (this.MYTITLETEXT1)
+      text = "Line Items"
+   endwith
+
+   with (this.PBSAVE)
+      left = 7.0
+      top = 10.0
+   endwith
+
+   with (this.PBCANCEL)
+      left = 27.0
+      top = 10.0
+   endwith
+
+   this.MYTEXTLABEL1 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL1)
+      height = 1.0
+      left = 6.0
+      top = 2.5
+      width = 12.0
+      text = "Invoice:"
+   endwith
+
+   this.MYDISABLEDENTRYFIELD1 = new MYDISABLEDENTRYFIELD(this)
+   with (this.MYDISABLEDENTRYFIELD1)
+      dataLink = form.lineitem1.rowset.fields["invoice id"]
+      height = 1.0
+      left = 20.0
+      top = 2.5
+      width = 21.0
+   endwith
+
+   this.MYTEXTLABEL2 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL2)
+      height = 1.0
+      left = 6.0
+      top = 4.5
+      width = 12.0
+      text = "Item:"
+   endwith
+
+   this.MYCOMBOBOX1 = new MYCOMBOBOX(this)
+   with (this.MYCOMBOBOX1)
+      dataLink = form.lineitem1.rowset.fields["item id"]
+      height = 1.0
+      left = 20.0
+      top = 4.5
+      width = 12.0
+   endwith
+
+   this.MYTEXTLABEL3 = new MYTEXTLABEL(this)
+   with (this.MYTEXTLABEL3)
+      height = 1.0
+      left = 2.0
+      top = 6.5
+      width = 16.0
+      text = "Quantity Ordered:"
+   endwith
+
+   this.MYSPINBOX1 = new MYSPINBOX(this)
+   with (this.MYSPINBOX1)
+      dataLink = form.lineitem1.rowset.fields["qty"]
+      height = 1.0
+      left = 20.0
+      top = 6.5
+      width = 15.0
+      picture = '"999"'
+   endwith
+
+   this.rowset = this.lineitem1.rowset
+
+   function form_onOpen()
+      // this code will be used to see if the form is being opened
+		// properly at all (in the first place it's supposed to be called
+		// "invoice.wfm"), and if so, if we are supposed to be in append or
+		// beginEdit mode ..
+		if type("form.Mode") == "C" // character
+			if form.mode == "Append"
+				form.rowset.beginAppend()
+				// assign defaults
+				form.rowset.fields["Invoice ID"].value := form.InvoiceID
+				form.rowset.fields["Qty"].value := 1
+				form.rowset.refreshControls()
+			else
+				// find current row
+				form.rowset.canNavigate := {|| true}
+				form.rowset.indexName := "InvoiceItem"
+				form.rowset.findKey(str(form.InvoiceID, 7) + ;
+											str(form.ItemId, 7))
+				form.rowset.canNavigate := {|| false}
+				// start editing
+				form.rowset.beginEdit()
+			endif
+		else
+			form.rowset.first() // just so we're at the top
+			msgbox("You shouldn't run this form except from the invoice.wfm.", ;
+						"Don't do that!", 16)
+		endif
+      return
+
+endclass
+
