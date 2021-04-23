@@ -1,0 +1,68 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 23/04/2021
+//
+parameter bModal
+local f
+f = new AboutForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class AboutForm of DIALOGCFORM from "dialogForm.cfm"
+   set procedure to MyControls.cc additive
+   with (this)
+      height = 16.0
+      left = 35.8571
+      top = 4.1364
+      width = 54.0
+      text = "About Tutorial"
+   endwith
+
+   with (this.MYTITLETEXT1)
+      text = "About"
+   endwith
+
+   with (this.PBSAVE)
+      visible = false
+      left = 6.0
+      top = 12.5
+   endwith
+
+   with (this.PBCANCEL)
+      visible = false
+      left = 32.0
+      top = 12.5
+   endwith
+
+   this.MYTEXT1 = new MYTEXT(this)
+   with (this.MYTEXT1)
+      height = 3.5
+      left = 8.0
+      top = 2.5
+      width = 37.0
+      wrap = true
+      text = "This is a tutorial project for dBASE Plus. The application was created by Wendy Munyasi and updated by Wendy Munyasi (April 23rd, 2021). Enjoy!"
+   endwith
+
+   this.MYPUSHBUTTON1 = new MYPUSHBUTTON(this)
+   with (this.MYPUSHBUTTON1)
+      onClick = class::MYPUSHBUTTON1_ONCLICK
+      height = 1.0909
+      left = 19.0
+      top = 7.0
+      width = 15.2857
+      text = "OK"
+      speedTip = '"Close this form"'
+   endwith
+
+
+   function MYPUSHBUTTON1_onClick()
+      form.close()
+      return
+
+endclass
+
