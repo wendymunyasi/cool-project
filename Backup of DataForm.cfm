@@ -1,4 +1,37 @@
+function rowset_canNavigate
+// check to save any changes before allowing navigation.
+// for whatever reason, this gets called twice. if the
+// user chooses Yes to Save, or No to abandon, then the 
+// next time through the rowset.modified property is false
+// so there's no problem. if the user chooses to cancel
+// the navigation, they'll get promoted twice. For that 
+// reason, we set the flag to indicate it's been here once.
+//  if the flag exists, we null it, if not we run validation.
+
+        local bYes, nAnswer
+        if type("_app.cancelNav") == "L" and _app.cancelNav
+                _app.cancelNav := null
+                bYes = false
+        else
+                bYes = true
+                if this.modified
+                        nAnswer = msgbox("Save changes before leaving record?",;
+                                                                        "Data has changed", 32+3)
+                        do CASE
+                        case nAnswer == 6 // Yes
+                                this.save()
+                        case nANSWER == 7 // No
+                                this.abandon()
+                        otherwise
+                                bYes := false
+                                _app.cancelNav = true
+                        endcase
+                endif
+        endif
+return bYes
+
 ** END HEADER -- do not remove this line
+
 class DataFormCForm of BASECFORM custom from "Base.cfm"
    set procedure to :FormControls:seeker.cc additive
    set procedure to MyControls.cc additive
@@ -68,11 +101,11 @@ class DataFormCForm of BASECFORM custom from "Base.cfm"
 			// don't allow automatic editing
 			form.rowset.autoEdit := false
 			// assign this method to the rowset's canNavigate:
-			form.rowset.canNavigate := class::rowset_canNavigate
+			form.rowset.cannavigate := class::rowset_cannavigate
 			// go to first row ...
 			form.rowset.first()
 		endif
       return
 
-   endclass
+endclass
 

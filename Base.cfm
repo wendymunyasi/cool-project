@@ -1,14 +1,15 @@
-function Repaint
-          parameter oForm
-          if type("oForm") == "U" or empty(oForm)
-                         oForm = form
-          endif
-          if type("UpdateWindow") # "FP"
-                         extern CLOGICAL UpdateWindow(CHANDLE) USER32
-          endif
-RETURN UpdateWindow(oForm.hWnd)
+function repaint
+        parameter oForm
+   if type("oForm") == "U" or empty(oForm)
+                oForm = form
+        endif
+        if type("UpdateWindow") # "FP"
+                 extern CLOGICAL UpdateWindow(CHANDLE) USER32
+        endif
+return UpdateWindow(oForm.hWnd)
 
 ** END HEADER -- do not remove this line
+
 
 class BaseCForm of FORM custom
    set procedure to MyControls.cc additive
@@ -17,9 +18,9 @@ class BaseCForm of FORM custom
       onLostFocus = class::FORM_ONLOSTFOCUS
       canClose = class::FORM_CANCLOSE
       onClose = class::FORM_ONCLOSE
-      height = 16.0
-      left = 49.4286
-      top = 9.4091
+      height = 21.4545
+      left = 20.0
+      top = 5.8636
       width = 94.0
       text = "BaseForm"
    endwith
@@ -68,7 +69,7 @@ class BaseCForm of FORM custom
 			_app.framewin.currentForm = this
 		endif
 		form.repaint()
-	return
+		return
 
    function form_onLostFocus()
       // null out applications's reference to this form:
